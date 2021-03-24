@@ -1,0 +1,266 @@
+.section-covid {
+  --graph-color-cases: orange;
+  --graph-color-deaths: red;
+  --graph-color-recovered: green;
+  --graph-color-active: pink;
+  --graph-color-tested: steelblue;
+  --graph-color-hospitalized: yellow;
+
+  color: $color-grey-light-1;
+}
+
+.graph-title {
+  color: $color-primary;
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+.graph-layout {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.graph-container {
+}
+
+.data-container {
+}
+
+/**********
+Graph styling
+**********/
+
+.ca-Graph {
+  height: 320px;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.graph-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.graph-button-container-overview,
+.graph-button-container-daily {
+  padding: 5px 20px;
+}
+
+.graph-btn-disabled {
+  opacity: 0.5;
+}
+
+/**********
+Graph colors
+**********/
+
+.graph-line {
+  fill: none;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.graph-circle:hover {
+  cursor: pointer;
+}
+
+.graph-line-cases {
+  /* Stroke for line on graph */
+  stroke: var(--graph-color-cases);
+  /* bg color for graph legend color */
+  background-color: var(--graph-color-cases);
+}
+
+.graph-circle-cases {
+  fill: var(--graph-color-cases);
+}
+
+.graph-line-deaths {
+  stroke: var(--graph-color-deaths);
+  background-color: var(--graph-color-deaths);
+}
+.graph-circle-deaths {
+  fill: var(--graph-color-deaths);
+}
+
+.graph-line-recovered {
+  stroke: var(--graph-color-recovered);
+  background-color: var(--graph-color-recovered);
+}
+.graph-circle-recovered {
+  fill: var(--graph-color-recovered);
+}
+
+.graph-line-active {
+  stroke: var(--graph-color-active);
+  background-color: var(--graph-color-active);
+}
+.graph-circle-active {
+  fill: var(--graph-color-active);
+}
+
+.graph-line-hospitalized {
+  stroke: var(--graph-color-hospitalized);
+  background-color: var(--graph-color-hospitalized);
+}
+
+.graph-circle-hospitalized {
+  fill: var(--graph-color-hospitalized);
+}
+
+.graph-line-tested {
+  stroke: var(--graph-color-tested);
+  background-color: var(--graph-color-tested);
+}
+
+.graph-circle-tested {
+  fill: var(--graph-color-tested);
+}
+
+/**********
+Axis
+**********/
+
+/* Tick styling on axises */
+#graph > * g .tick {
+  font-size: 14px;
+  // font-family: var(--spectrum-component-text-font-family);
+}
+
+.graph-grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.6;
+  shape-rendering: crispEdges;
+}
+
+.graph-grid path {
+  stroke-width: 0;
+}
+
+/**********
+Legend
+**********/
+
+.graph-legend {
+  padding: 5px;
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  background-color: $color-grey-dark;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.graph-legend-key-container {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.graph-legend-color {
+  height: 15px;
+  width: 15px;
+}
+
+.graph-legend-key-description {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.graph-legend-key-name {
+  margin-left: 10px;
+  text-transform: capitalize;
+  font-size: 1.6rem;
+}
+
+.graph-legend-key-name:hover {
+  text-decoration: underline;
+}
+
+.graph-button {
+  margin: 0.5rem;
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.6rem;
+  border-radius: 5px;
+
+  &--primary {
+    background-color: $color-primary;
+  }
+  &--secondary {
+    background-color: $color-tertiary-light;
+  }
+}
+
+/**********
+Tooltip
+**********/
+
+.graph-tooltip {
+  background-color: rgba(216, 216, 216, 0.7);
+  /* width: 200px; */
+  /* min-height: 150px; */
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+}
+
+.graph-tooltip-title {
+  text-align: center;
+  /* color: steelblue; */
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.graph-tooltip > p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/**********
+Data display
+**********/
+
+.data-container {
+  padding: 2rem;
+  padding-top: 0.5rem;
+  background-color: rgb(67, 67, 67);
+  border-radius: 10px;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+
+  border-bottom: 2px solid $color-grey-light-1;
+}
+
+#data {
+  &-cases {
+    color: var(--graph-color-cases);
+  }
+  &-deaths {
+    color: var(--graph-color-deaths);
+  }
+  &-hospitalized {
+    color: var(--graph-color-hospitalized);
+  }
+  &-recovered {
+    color: var(--graph-color-recovered);
+  }
+  &-active {
+    color: var(--graph-color-active);
+  }
+  &-tested {
+    color: var(--graph-color-tested);
+  }
+}

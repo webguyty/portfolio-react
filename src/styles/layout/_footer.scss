@@ -1,0 +1,32 @@
+.footer {
+  padding: 3rem;
+  text-align: center;
+  color: $color-grey-light-1;
+  background-color: $color-grey-dark-3;
+  background-image: url("../../images/design/fabric.png");
+
+  a.footer__email {
+    color: white;
+    &:visited {
+      color: $color-grey-light-1;
+    }
+
+    &:hover,
+    &:active {
+      color: $header-blue;
+    }
+  }
+
+  a.footer__top-page {
+    color: $color-primary;
+
+    &:visited {
+      color: $color-primary;
+    }
+
+    &:hover,
+    &:active {
+      color: $header-blue;
+    }
+  }
+}

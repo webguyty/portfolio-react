@@ -1,0 +1,195 @@
+section.section-intro {
+  // margin-bottom: 5rem;
+  padding: 10rem $page-margin;
+  background-color: $intro-color;
+
+  @include respond(big-desktop) {
+    // padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    // padding: 10rem $page-margin-mobile;
+    // margin: 2 rem;
+  }
+}
+
+section .section-mern {
+  background-image: url("../../images/design/starry.png");
+  background-position: 20% 30%;
+  background-repeat: no-repeat;
+
+  $bg-opacity: rgba(white, 0.1);
+
+  &-bg-opacity-fade {
+    height: 7rem;
+    padding: 0 $page-margin;
+    background-image: linear-gradient(to bottom, $intro-color, $bg-opacity);
+  }
+
+  &-bg-opacity-layer {
+    padding: 7rem $page-margin 10rem $page-margin;
+    background-color: $bg-opacity;
+    height: 100%;
+    width: 100%;
+  }
+
+  & h3 {
+    color: $color-primary;
+    margin-top: 0;
+  }
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section .section-goalSeeker {
+  position: relative;
+  // Styling for bottom of div star section
+  // Highest num star starts from left
+  $star1X: 26%;
+  $star1Y: 94%;
+
+  $star2X: 52%;
+  $star2Y: 100%;
+
+  $star3X: 71%;
+  $star3Y: 90%;
+
+  &-clip {
+    padding: 10rem $page-margin;
+    background-color: white;
+    min-height: 50rem;
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      $star3X $star3Y,
+      $star2X $star2Y,
+      $star1X $star1Y,
+      0 100%
+    );
+  }
+
+  &-star {
+    color: $color-tertiary-dark;
+    filter: drop-shadow(0 0 4px rgba(white, 0.7));
+    position: absolute;
+    font-size: 4rem;
+    transform: translate(-50%, -50%);
+
+    &--1 {
+      left: $star1X;
+      top: $star1Y;
+    }
+    &--2 {
+      left: $star2X;
+      top: $star2Y;
+    }
+    &--3 {
+      left: $star3X;
+      top: $star3Y;
+    }
+  }
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section .section-covid {
+  padding-top: 20rem;
+  margin-top: -10rem;
+  padding-bottom: 10rem;
+  background-color: $color-grey-dark-3;
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section.section-tnd {
+  padding: 5rem $page-margin;
+  background-image: url("../../images/design/az-subtle.png"),
+    linear-gradient(to bottom right, white, rgb(230, 230, 230));
+
+  @include respond(big-desktop) {
+    padding: 5rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section.section-portfolio-outline {
+  padding: 10rem $page-margin;
+  background-color: $color-grey-dark-3;
+  color: $color-grey-light-1;
+
+  & h3 {
+    color: $color-primary;
+  }
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section.section-hire {
+  padding: 10rem $page-margin;
+  background-image: url("../../images/design/az-subtle.png"),
+    linear-gradient(to bottom right, white, rgb(230, 230, 230));
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section.section-contact {
+  padding: 10rem $page-margin;
+  background-color: $color-grey-dark-3;
+  background-image: url("../../images/design/fabric.png");
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section.section-about {
+  padding: 10rem $page-margin;
+  background-color: $intro-color;
+  // height: 50rem;
+
+  @include respond(big-desktop) {
+    padding: 10rem $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}

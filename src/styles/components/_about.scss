@@ -1,0 +1,36 @@
+.about {
+  p:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &__text-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+
+    @include respond(tab-land) {
+      grid-template-columns: auto;
+    }
+  }
+
+  &__images-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
+
+    @include respond(phone) {
+      grid-template-columns: auto;
+    }
+  }
+
+  &__images {
+    width: 80%;
+    margin: auto;
+    margin-top: 5rem;
+
+    & img {
+      width: 100%;
+      box-shadow: 7px 10px 15px rgba($color: #000000, $alpha: 0.3);
+    }
+  }
+}

@@ -1,0 +1,96 @@
+.portfolio-header {
+  height: 96vh;
+  background-color: $header-blue;
+  background-image: url("../../images/design/az-subtle.png");
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  @include respond(tab-port) {
+    height: 90vh;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10rem;
+    justify-content: center;
+    align-items: center;
+
+    @include respond(tab-land) {
+      grid-template-columns: auto;
+    }
+  }
+
+  &__avatar {
+    // display: inline-block;
+    margin: auto;
+    width: 35rem;
+    height: 35rem;
+    background-image: url("../../images/webguyty-golden.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+
+    box-shadow: 7px 10px 15px rgba($color: #000000, $alpha: 0.3);
+
+    @include respond(tab-land) {
+      width: 40rem;
+      height: 40rem;
+    }
+  }
+
+  &__title {
+    font-size: 3.5rem;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 3rem;
+    margin: 0;
+  }
+
+  &__content-box {
+    color: #333;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    &:hover > * {
+      color: $color-primary-dark;
+    }
+  }
+
+  &__icon-container {
+    width: 4rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    font-size: 2.5rem;
+  }
+
+  & a {
+    color: #333;
+    line-height: 3.5rem;
+    font-size: 2rem;
+
+    &:hover,
+    &:active {
+      color: $color-primary-dark;
+    }
+
+    &:visited {
+      // color: #333;
+    }
+  }
+}

@@ -1,0 +1,228 @@
+$bg-card-color: rgba(
+  $color: white,
+  $alpha: 0.54,
+);
+
+.mern {
+  // margin-bottom: 2rem;
+  border: 5px solid $color-primary;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  background-color: $bg-card-color;
+}
+
+.mern-intro {
+  text-align: center;
+
+  & h3 {
+    color: $color-primary;
+    font-size: 3.5rem;
+    margin: 0;
+  }
+
+  & p {
+    font-size: 2rem;
+    color: rgb(0, 0, 0);
+    // background-color: rgba($color: white, $alpha: 0.44);
+    // border-radius: 10px;
+    display: inline-block;
+    padding: 0 1rem;
+  }
+}
+
+//
+// Grid config
+//
+
+$gap-width: 5rem;
+$bar-thickness: 1rem;
+
+// Backend section width difference
+$gap-width-backend: 3rem;
+
+// Bottom grid - contact keeper and it logger
+$gap-width-bottom: 6rem;
+
+.mern-grid {
+  display: grid;
+  grid-template-columns: $bar-thickness 1fr 1fr $bar-thickness;
+  gap: 1.5rem $gap-width;
+}
+
+// Column ordering
+.mern {
+  &-leftBar {
+    // leftBar container spacing
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    height: 80%;
+    align-self: center;
+
+    // leftBar children styling
+
+    display: grid;
+    grid-template-columns: $bar-thickness $gap-width;
+    align-content: space-between;
+
+    &-long {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 4;
+      width: $bar-thickness;
+      height: 100%;
+      background-color: $color-primary;
+      border-radius: 10px 0 0 10px;
+    }
+
+    &-short {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      width: $gap-width;
+      height: $bar-thickness;
+      background-color: $color-primary;
+
+      &--1 {
+        // align-self: center;
+        width: $gap-width + $gap-width-backend;
+      }
+      &--2 {
+        // align-self: center;
+      }
+      &--3 {
+        // align-self: end;
+        width: $gap-width + $gap-width-bottom / 2;
+      }
+    }
+  }
+
+  &-rightBar {
+    // rightBar container spacing
+    margin-left: -$gap-width;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    height: 60%;
+    align-self: center;
+
+    // rightBar children styling
+
+    display: grid;
+    grid-template-columns: $gap-width $bar-thickness;
+
+    &-long {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 4;
+      width: $bar-thickness;
+      height: 100%;
+      background-color: $color-primary;
+      border-radius: 0 10px 10px 0;
+    }
+
+    &-short {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 4;
+      width: $gap-width;
+      height: $bar-thickness;
+      background-color: $color-primary;
+
+      &--1 {
+        width: $gap-width + $gap-width-backend;
+        margin-right: 10rem !important;
+        // margin-right: $gap-width-backend;
+        margin-left: -$gap-width-backend;
+        align-self: start;
+      }
+      &--2 {
+        width: $gap-width + $gap-width-backend;
+        margin-left: -$gap-width-bottom / 2;
+        align-self: end;
+      }
+    }
+  }
+
+  &-backend {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    margin-left: $gap-width-backend;
+    margin-right: $gap-width-backend;
+    // grid-row-start: 1;
+    // grid-row-end: 3;
+  }
+  &-goalSeeker {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    // grid-row-start: 1;
+    // grid-row-end: 4;
+  }
+  &-contactKeeper {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    margin-left: $gap-width-bottom / 2;
+    // grid-row-start: 1;
+    // grid-row-end: 3;
+  }
+  &-itLogger {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    margin-right: $gap-width-bottom / 2;
+    // grid-row-start: 1;
+    // grid-row-end: 3;
+  }
+}
+
+//
+// Card Styling
+//
+
+// Link color styling
+.mern {
+  & a {
+    font-weight: bold;
+    color: $color-tertiary-dark;
+
+    &:hover {
+      color: $color-primary-dark;
+    }
+  }
+}
+
+.mern .mern-title {
+  & > * {
+    display: inline-block;
+  }
+
+  & h4 {
+    font-size: 2rem;
+  }
+
+  & a {
+    font-size: 1.6rem;
+    margin-left: 0.6rem;
+  }
+}
+
+.mern .mern-github {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+}
+
+.mern .mern-bio {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.mern .mern-tech {
+  margin-bottom: 0;
+  &-title {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,29 @@
+section.section-tnd {
+}
+
+.tnd-grid {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1rem;
+  justify-content: space-evenly;
+
+  @include respond(tab-land) {
+    grid-template-columns: auto;
+  }
+}
+
+.tnd-screen {
+  height: 50rem;
+  overflow-y: auto;
+  margin: auto;
+  box-shadow: 7px 10px 15px rgba($color: #000000, $alpha: 0.3);
+
+  @include respond(tab-land) {
+    height: 70rem;
+
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
+}
