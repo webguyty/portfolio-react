@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import "./main.scss";
+import { logDiv, logLink, logUser } from './tracker/apiCalls';
 
 function TrackerApp() {
   // const [count, setCount] = useState(0)
