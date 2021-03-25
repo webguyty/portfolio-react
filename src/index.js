@@ -16,7 +16,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('tracker')
 );
 
 showGraph();

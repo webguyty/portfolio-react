@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import { DataTotals, Data } from "../assets/covidData";
+import * as d3 from 'd3';
+import { DataTotals, Data } from '../assets/covidData';
 
 // function generateGraphData({ timeseries, location }) {
 //   const graphData = [];
@@ -52,7 +52,7 @@ export function showGraph() {
   // console.log(data);
 
   // Parse time for cross browser compatability
-  const parseTime = d3.timeParse("%Y-%m-%d");
+  const parseTime = d3.timeParse('%Y-%m-%d');
 
   // Determine the daily occurrences for each peace of data
   function countDay(key, d, i, arr) {
@@ -151,37 +151,37 @@ export function showGraph() {
   // Add modified data object points to lines array
   // Add key for populatePoint of what you want to label key as
   data.forEach((d, i, arr) => {
-    populatePoint("cases", d, i, arr);
+    populatePoint('cases', d, i, arr);
 
-    populatePoint("deaths", d, i, arr);
+    populatePoint('deaths', d, i, arr);
 
-    populatePoint("recovered", d, i, arr);
+    populatePoint('recovered', d, i, arr);
 
-    populatePoint("active", d, i, arr);
+    populatePoint('active', d, i, arr);
 
-    populatePoint("tested", d, i, arr);
+    populatePoint('tested', d, i, arr);
 
-    populatePoint("hospitalized", d, i, arr);
+    populatePoint('hospitalized', d, i, arr);
   });
 
   // Filter lines for what is being displayed and toggled in legend
   function filterLines(d) {
-    if (display.cases && d.name === "cases") {
+    if (display.cases && d.name === 'cases') {
       return 1;
     }
-    if (display.deaths && d.name === "deaths") {
+    if (display.deaths && d.name === 'deaths') {
       return 1;
     }
-    if (display.recovered && d.name === "recovered") {
+    if (display.recovered && d.name === 'recovered') {
       return 1;
     }
-    if (display.active && d.name === "active") {
+    if (display.active && d.name === 'active') {
       return 1;
     }
-    if (display.tested && d.name === "tested") {
+    if (display.tested && d.name === 'tested') {
       return 1;
     }
-    if (display.hospitalized && d.name === "hospitalized") {
+    if (display.hospitalized && d.name === 'hospitalized') {
       return 1;
     }
   }
@@ -193,10 +193,10 @@ export function showGraph() {
   // Data for generating legend
   const nestedLines = d3
     .nest()
-    .key((d) => d.name)
+    .key(d => d.name)
     .entries(lines);
 
-  const legend = document.querySelector(".graph-legend-key-container");
+  const legend = document.querySelector('.graph-legend-key-container');
 
   // legend.setAttribute('class', 'graph-legend');
   // legend.innerHTML = '<div class="graph-legend-key-container">';
@@ -210,14 +210,14 @@ export function showGraph() {
   // document.getElementById('graph').appendChild(legend);
 
   // Legend toggle buttons
-  const legendCases = document.getElementById("graph-legend-cases");
-  const legendDeaths = document.getElementById("graph-legend-deaths");
-  const legendRecovered = document.getElementById("graph-legend-recovered");
-  const legendActive = document.getElementById("graph-legend-active");
+  const legendCases = document.getElementById('graph-legend-cases');
+  const legendDeaths = document.getElementById('graph-legend-deaths');
+  const legendRecovered = document.getElementById('graph-legend-recovered');
+  const legendActive = document.getElementById('graph-legend-active');
   const legendHospitalized = document.getElementById(
-    "graph-legend-hospitalized"
+    'graph-legend-hospitalized'
   );
-  const legendTested = document.getElementById("graph-legend-tested");
+  const legendTested = document.getElementById('graph-legend-tested');
 
   // Appends legend onto graph and toggles for filtered lines result
   // Error check to make sure the area you are viewing has complete data or don't try to change style
@@ -251,43 +251,43 @@ export function showGraph() {
   //
 
   // set the dimensions and margins of the graph
-  const el = document.querySelector("#graph");
+  const el = document.querySelector('#graph');
   const margin = { top: 20, right: 10, bottom: 10, left: 45 };
   const width = el.offsetWidth - margin.left - margin.right - 10;
   const height = el.offsetHeight - margin.top - margin.bottom - 10;
 
   function generateGraph() {
     // Clear any previous graph and append legend
-    d3.selectAll("#graph > *").remove();
+    d3.selectAll('#graph > *').remove();
     applyLegend();
 
     // Filter data for active data points and toggling
-    const filteredLines = lines.filter((d) => filterLines(d));
+    const filteredLines = lines.filter(d => filterLines(d));
 
     // Data for drawing lines
 
     // append the svg object to the #graph of the page
     const svg = d3
-      .select("#graph")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom);
+      .select('#graph')
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom);
 
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     const g = svg
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.right})`);
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.right})`);
 
     //
     // Overview graph - Line Graph
     //
 
     function drawGraph() {
-      const xValue = (d) => d.date;
+      const xValue = d => d.date;
       // const xLabel = 'date';
       // Set yValue depending on if display is set for linear graph or log graph, and for overview data or day count data
-      const yValue = (d) => {
+      const yValue = d => {
         if (display.linearGraph && display.overviewGraph) {
           return d.count;
         }
@@ -316,15 +316,15 @@ export function showGraph() {
         return d3.axisBottom(xScale).ticks(10);
       }
 
-      g.append("g")
-        .attr("class", "graph-grid")
-        .attr("transform", `translate(0,${height})`)
-        .call(makeXgridlines().tickSize(-height).tickFormat(""));
+      g.append('g')
+        .attr('class', 'graph-grid')
+        .attr('transform', `translate(0,${height})`)
+        .call(makeXgridlines().tickSize(-height).tickFormat(''));
 
       // Append x axis data onto chart
-      g.append("g")
+      g.append('g')
         .call(d3.axisBottom(xScale))
-        .attr("transform", `translate(0,${height})`);
+        .attr('transform', `translate(0,${height})`);
       // Append x axis label onto chart
       // g.append('text')
       //   .attr('class', 'bottom-axis-label')
@@ -338,7 +338,7 @@ export function showGraph() {
       // Default is linear
       let yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(filteredLines, (d) => yValue(d))])
+        .domain([0, d3.max(filteredLines, d => yValue(d))])
         .range([height, 0]);
 
       // Reassign yScale to be log graph
@@ -347,7 +347,7 @@ export function showGraph() {
         yScale = d3
           .scaleLog()
           .base(2)
-          .domain([1, d3.max(filteredLines, (d) => yValue(d))])
+          .domain([1, d3.max(filteredLines, d => yValue(d))])
           .range([height, 0]);
       }
 
@@ -356,12 +356,12 @@ export function showGraph() {
         return d3.axisLeft(yScale).ticks(5);
       }
       // Add on y grid lines
-      g.append("g")
-        .attr("class", "graph-grid")
-        .call(makeYgridlines().tickSize(-width).tickFormat(""));
+      g.append('g')
+        .attr('class', 'graph-grid')
+        .call(makeYgridlines().tickSize(-width).tickFormat(''));
 
       // Add y axis data (domain / range )
-      g.append("g").call(d3.axisLeft(yScale));
+      g.append('g').call(d3.axisLeft(yScale));
       // Add y axis title and positioning
       // x and y positioning reversed due to rotation
       // g.append('text')
@@ -375,21 +375,21 @@ export function showGraph() {
 
       const nestedFiltered = d3
         .nest()
-        .key((d) => d.name)
+        .key(d => d.name)
         .entries(filteredLines);
 
       const lineGenerator = d3
         .line()
-        .x((d) => xScale(xValue(d)))
-        .y((d) => yScale(yValue(d)));
+        .x(d => xScale(xValue(d)))
+        .y(d => yScale(yValue(d)));
       // .curve(d3.curveBasis);
       // Draw lines
-      g.selectAll("graph-line")
+      g.selectAll('graph-line')
         .data(nestedFiltered)
         .enter()
-        .append("path")
-        .attr("class", (d) => `graph-line graph-line-${d.key}`)
-        .attr("d", (d) => lineGenerator(d.values));
+        .append('path')
+        .attr('class', d => `graph-line graph-line-${d.key}`)
+        .attr('d', d => lineGenerator(d.values));
 
       //
       // Tooltips
@@ -397,12 +397,12 @@ export function showGraph() {
       // Tooltips and dots use filteredLines array
 
       const tooltip = d3
-        .select("#graph")
-        .append("div")
-        .attr("class", "graph-tooltip")
-        .style("opacity", 0);
+        .select('#graph')
+        .append('div')
+        .attr('class', 'graph-tooltip')
+        .style('opacity', 0);
 
-      const formatDate = (date) => {
+      const formatDate = date => {
         const dateF = {
           year: date.getUTCFullYear(),
           month: date.getUTCMonth() + 1,
@@ -440,32 +440,32 @@ export function showGraph() {
       }
 
       const mouseover = function () {
-        tooltip.style("opacity", 1);
+        tooltip.style('opacity', 1);
       };
 
       const mousemove = function (d) {
         tooltip
           .html(tooltipHTML(d))
-          .style("left", `${placeTooltipX(d3.mouse(this)[0])}px`)
-          .style("top", `${placeTooltipY(d3.mouse(this)[1])}px`);
+          .style('left', `${placeTooltipX(d3.mouse(this)[0])}px`)
+          .style('top', `${placeTooltipY(d3.mouse(this)[1])}px`);
       };
 
       const mouseleave = function () {
-        tooltip.transition().duration(200).style("opacity", 0);
+        tooltip.transition().duration(200).style('opacity', 0);
       };
 
       // Draw dots with filtered lines for tooltips
-      g.selectAll("circle")
+      g.selectAll('circle')
         .data(filteredLines)
         .enter()
-        .append("circle")
-        .attr("cy", (d) => yScale(yValue(d)))
-        .attr("cx", (d) => xScale(xValue(d)))
-        .attr("r", 3.5)
-        .attr("class", (d) => `graph-circle graph-circle-${d.name}`)
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave);
+        .append('circle')
+        .attr('cy', d => yScale(yValue(d)))
+        .attr('cx', d => xScale(xValue(d)))
+        .attr('r', 3.5)
+        .attr('class', d => `graph-circle graph-circle-${d.name}`)
+        .on('mouseover', mouseover)
+        .on('mousemove', mousemove)
+        .on('mouseleave', mouseleave);
     }
 
     drawGraph();
@@ -479,63 +479,63 @@ export function showGraph() {
   // Event listeners for legend
   // Error check to make sure the area you are viewing has complete data or don't make a button for it
   if (legendCases) {
-    legendCases.addEventListener("click", () => {
+    legendCases.addEventListener('click', () => {
       display.cases = !display.cases;
       generateGraph();
     });
   }
   if (legendDeaths) {
-    legendDeaths.addEventListener("click", () => {
+    legendDeaths.addEventListener('click', () => {
       display.deaths = !display.deaths;
       generateGraph();
     });
   }
   if (legendRecovered) {
-    legendRecovered.addEventListener("click", () => {
+    legendRecovered.addEventListener('click', () => {
       display.recovered = !display.recovered;
       generateGraph();
     });
   }
   if (legendActive) {
-    legendActive.addEventListener("click", () => {
+    legendActive.addEventListener('click', () => {
       display.active = !display.active;
       generateGraph();
     });
   }
   if (legendHospitalized) {
-    legendHospitalized.addEventListener("click", () => {
+    legendHospitalized.addEventListener('click', () => {
       display.hospitalized = !display.hospitalized;
       generateGraph();
     });
   }
   if (legendTested) {
-    legendTested.addEventListener("click", () => {
+    legendTested.addEventListener('click', () => {
       display.tested = !display.tested;
       generateGraph();
     });
   }
 
-  const btnOverview = document.getElementById("graph-btn-overview");
-  const btnDailyCount = document.getElementById("graph-btn-daily");
-  const btnLinear = document.getElementById("graph-btn-linear");
-  const btnLog = document.getElementById("graph-btn-log");
+  const btnOverview = document.getElementById('graph-btn-overview');
+  const btnDailyCount = document.getElementById('graph-btn-daily');
+  const btnLinear = document.getElementById('graph-btn-linear');
+  const btnLog = document.getElementById('graph-btn-log');
 
-  btnOverview.addEventListener("click", () => {
+  btnOverview.addEventListener('click', () => {
     display.overviewGraph = true;
     generateGraph();
   });
 
-  btnDailyCount.addEventListener("click", () => {
+  btnDailyCount.addEventListener('click', () => {
     display.overviewGraph = false;
     generateGraph();
   });
 
-  btnLinear.addEventListener("click", () => {
+  btnLinear.addEventListener('click', () => {
     display.linearGraph = true;
     generateGraph();
   });
 
-  btnLog.addEventListener("click", () => {
+  btnLog.addEventListener('click', () => {
     display.linearGraph = false;
     generateGraph();
   });
@@ -544,10 +544,10 @@ export function showGraph() {
 export function showData() {
   const { cases, active, deaths, hospitalized, recovered, tested } = DataTotals;
 
-  document.getElementById("data-cases").textContent = cases;
-  document.getElementById("data-deaths").textContent = deaths;
-  document.getElementById("data-hospitalized").textContent = hospitalized;
-  document.getElementById("data-recovered").textContent = recovered;
-  document.getElementById("data-active").textContent = active;
-  document.getElementById("data-tested").textContent = tested;
+  document.getElementById('data-cases').textContent = cases;
+  document.getElementById('data-deaths').textContent = deaths;
+  document.getElementById('data-hospitalized').textContent = hospitalized;
+  document.getElementById('data-recovered').textContent = recovered;
+  document.getElementById('data-active').textContent = active;
+  document.getElementById('data-tested').textContent = tested;
 }

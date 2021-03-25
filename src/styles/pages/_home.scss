@@ -14,7 +14,7 @@ section.section-intro {
 }
 
 section .section-mern {
-  background-image: url("../../images/design/starry.png");
+  background-image: url('../../images/design/starry.png');
   background-position: 20% 30%;
   background-repeat: no-repeat;
 
@@ -105,11 +105,28 @@ section .section-goalSeeker {
   }
 }
 
-section .section-covid {
+section .section-tracker {
+  // Styling for top angled section with stars
   padding-top: 20rem;
   margin-top: -10rem;
   padding-bottom: 10rem;
+  background-color: rgb(221, 84, 245);
+
+  height: 13rem;
+
+  @include respond(big-desktop) {
+    padding: $page-margin-lg;
+  }
+
+  @include respond(tab-land) {
+    padding: 10rem $page-margin-mobile;
+  }
+}
+
+section .section-covid {
   background-color: $color-grey-dark-3;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 
   @include respond(big-desktop) {
     padding: 10rem $page-margin-lg;
@@ -122,7 +139,7 @@ section .section-covid {
 
 section.section-tnd {
   padding: 5rem $page-margin;
-  background-image: url("../../images/design/az-subtle.png"),
+  background-image: url('../../images/design/az-subtle.png'),
     linear-gradient(to bottom right, white, rgb(230, 230, 230));
 
   @include respond(big-desktop) {
@@ -154,7 +171,7 @@ section.section-portfolio-outline {
 
 section.section-hire {
   padding: 10rem $page-margin;
-  background-image: url("../../images/design/az-subtle.png"),
+  background-image: url('../../images/design/az-subtle.png'),
     linear-gradient(to bottom right, white, rgb(230, 230, 230));
 
   @include respond(big-desktop) {
@@ -169,7 +186,7 @@ section.section-hire {
 section.section-contact {
   padding: 10rem $page-margin;
   background-color: $color-grey-dark-3;
-  background-image: url("../../images/design/fabric.png");
+  background-image: url('../../images/design/fabric.png');
 
   @include respond(big-desktop) {
     padding: 10rem $page-margin-lg;
