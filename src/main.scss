@@ -1,24 +1,24 @@
-// @import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
-// @import "node_modules/@glidejs/glide/src/assets/sass/glide.theme";
+@import 'node_modules/@glidejs/glide/src/assets/sass/glide.core';
+@import 'node_modules/@glidejs/glide/src/assets/sass/glide.theme';
 
-@import "styles/base/mixins";
-@import "styles/base/variables";
-@import "styles/base/base";
-@import "styles/base/typography";
-@import "styles/base/utilities";
+@import 'styles/base/mixins';
+@import 'styles/base/variables';
+@import 'styles/base/base';
+@import 'styles/base/typography';
+@import 'styles/base/utilities';
 
-@import "styles/pages/home";
+@import 'styles/pages/home';
 
-@import "styles/layout/header";
-@import "styles/layout/navigation";
-@import "styles/layout/footer";
-@import "styles/layout/container";
+@import 'styles/layout/header';
+@import 'styles/layout/navigation';
+@import 'styles/layout/footer';
+@import 'styles/layout/container';
 
-@import "styles/components/about";
-@import "styles/components/contact";
-@import "styles/components/graph";
-@import "styles/components/introduction";
-@import "styles/components/project";
-@import "styles/components/slider";
-@import "styles/components/tnd";
-@import "styles/components/mern";
+@import 'styles/components/about';
+@import 'styles/components/contact';
+@import 'styles/components/graph';
+@import 'styles/components/introduction';
+@import 'styles/components/project';
+@import 'styles/components/slider';
+@import 'styles/components/tnd';
+@import 'styles/components/mern';
