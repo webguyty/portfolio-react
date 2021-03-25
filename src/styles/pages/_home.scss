@@ -112,8 +112,6 @@ section .section-tracker {
   padding-bottom: 10rem;
   background-color: rgb(221, 84, 245);
 
-  height: 13rem;
-
   @include respond(big-desktop) {
     padding: $page-margin-lg;
   }

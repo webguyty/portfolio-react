@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
 import './main.scss';
 
-import App from './App';
+import TrackerApp from './TrackerApp';
 import './scripts/slider';
 import './scripts/scrollSpy';
 import sendEmail from './scripts/sendEmail';
@@ -14,7 +14,7 @@ import { showGraph, showData } from './scripts/graph';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TrackerApp />
   </React.StrictMode>,
   document.getElementById('tracker')
 );
