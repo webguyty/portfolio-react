@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GumShoe from 'gumshoejs';
+import Gumshoe from 'gumshoejs/dist/gumshoe';
 
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
@@ -26,3 +26,8 @@ showData();
 
 // Send message component
 document.getElementById('form').addEventListener('submit', e => sendEmail(e));
+
+const header = document.querySelector('#my-awesome-nav');
+const spy = new Gumshoe('#my-awesome-nav a', {
+  offset: 200,
+});
