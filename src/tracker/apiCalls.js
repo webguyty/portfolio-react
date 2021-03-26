@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const apiURL = 'https://ywhvk48wn5.execute-api.us-west-2.amazonaws.com/dev';
 
 const config = {
@@ -10,8 +12,9 @@ export const logUser = async () => {
   try {
     const res = await axios.post(`${apiURL}/logUser`);
 
-    user = res.data;
+    const user = res.data;
     console.log(user);
+    return user;
   } catch (err) {
     console.log(err);
   }
