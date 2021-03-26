@@ -1,3 +1,8 @@
+#menu li.active a {
+  color: $header-blue;
+  border-color: $header-blue;
+}
+
 .navigation {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);

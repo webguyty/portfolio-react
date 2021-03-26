@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Gumshoe from 'gumshoejs/dist/gumshoe';
+import Gumshoe from 'gumshoejs/dist/gumshoe.polyfills';
 
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
@@ -9,7 +9,6 @@ import '@fortawesome/fontawesome-free/js/brands';
 import './main.scss';
 
 import './scripts/slider';
-import './scripts/scrollSpy';
 import sendEmail from './scripts/sendEmail';
 import { showGraph, showData } from './scripts/graph';
 import TrackerApp from './TrackerApp';
@@ -27,7 +26,16 @@ showData();
 // Send message component
 document.getElementById('form').addEventListener('submit', e => sendEmail(e));
 
-const header = document.querySelector('#my-awesome-nav');
-const spy = new Gumshoe('#my-awesome-nav a', {
+// Set up nav spy
+const spy = new Gumshoe('#menu a', {
   offset: 200,
+  nested: true,
 });
+
+document.addEventListener(
+  'gumshoeActivate',
+  e => {
+    console.log(e.detail.content.id);
+  },
+  false
+);

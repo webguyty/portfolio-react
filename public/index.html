@@ -31,10 +31,10 @@
 
     <title>WebGuyTy | Portfolio</title>
   </head>
-  <body>
+  <body class="hidden">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <header class="portfolio-header scrollspy" id="sec-intro">
-      <div class="portfolio-header__grid">
+      <div class="portfolio-header__grid" id="#header">
         <div class="portfolio-header__avatar">
           <!-- <img src="./images/webguyty-golden.jpg" alt="WebGuyTy with two golden retrievers"> --->
         </div>
@@ -91,14 +91,44 @@
       <nav class="navigation__nav">
         <ul class="navigation__list" id="menu">
           <li class="navigation__item">
-            <a href="#sec-intro" class="navigation__link active">Home</a>
+            <a href="#sec-intro" class="navigation__link">Home</a>
+            <!-- Links for gumshoe to work and fire off event listeners -->
+            <ul class="hidden">
+              <li>
+                <a href="#header"></a>
+              </li>
+              <li>
+                <a href="#technologySlider"></a>
+              </li>
+            </ul>
           </li>
+
           <li class="navigation__item">
             <a href="#sec-portfolio" class="navigation__link">Portfolio</a>
+            <!-- Links for gumshoe to work and fire off event listeners -->
+            <ul class="hidden">
+              <li>
+                <a href="#fullStackApplications"></a>
+              </li>
+              <li>
+                <a href="#goalSeekerApp"></a>
+              </li>
+              <li>
+                <a href="#trackerApp"></a>
+              </li>
+              <li>
+                <a href="#covidGraph"></a>
+              </li>
+              <li>
+                <a href="#scssStyling"></a>
+              </li>
+            </ul>
           </li>
+
           <li class="navigation__item">
             <a href="#sec-contact" class="navigation__link">Contact</a>
           </li>
+
           <li class="navigation__item">
             <a href="#sec-about" class="navigation__link">About</a>
           </li>
@@ -108,7 +138,7 @@
     <!-- End Nav -->
 
     <!-- Intro Section -->
-    <section class="section-intro">
+    <section class="section-intro" id="#technologySlider">
       <div class="container">
         <div class="introduction">
           <h1>Hello! My name is Tyler, welcome to my portfolio</h1>
@@ -183,10 +213,10 @@
       </div>
     </section>
 
-    <section class="scrollspy" id="sec-portfolio">
+    <section id="sec-portfolio">
       <!-- <h2 class='styled-headline'>Portfolio</h2> -->
 
-      <section class="section-mern">
+      <section class="section-mern" id="#fullStackApplications">
         <div class="section-mern-bg-opacity-fade"></div>
         <div class="section-mern-bg-opacity-layer">
           <div class="container">
@@ -322,7 +352,7 @@
         <!-- End opacity layer -->
       </section>
 
-      <section class="section-goalSeeker">
+      <section class="section-goalSeeker" id="#goalSeekerApp">
         <div class="section-goalSeeker-clip">
           <div class="container">
             <div class="project">
@@ -369,7 +399,7 @@
         ></i>
       </section>
 
-      <section class="section-tracker">
+      <section class="section-tracker" id="#trackerApp">
         <div class="container">
           <div class="project">
             <h3>Tracker App</h3>
@@ -403,7 +433,7 @@
         </div>
       </section>
 
-      <section class="section-covid">
+      <section class="section-covid" id="#covidGraph">
         <div class="star-container">
           <div class="container">
             <div class="project">
@@ -504,7 +534,7 @@
         </div>
       </section>
 
-      <section class="section-tnd">
+      <section class="section-tnd" id="scssStyling">
         <div class="container">
           <div class="project">
             <h3>Advanced SCSS, CSS, and JavaScript styling</h3>
