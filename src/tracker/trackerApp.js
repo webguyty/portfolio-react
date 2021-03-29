@@ -3,7 +3,20 @@ import axios from 'axios';
 
 class trackerApp {
   constructor() {
-    this.user = 'a user';
+    // Schema of user object
+    this.user = {
+      // Partition key = ip
+      ip: '',
+      userLocation: {
+        city: '',
+        state: '',
+        country: '',
+        zip: '',
+      },
+      visits: [],
+      divVisits: [],
+      linksClicked: [],
+    };
 
     this.apiURL = 'https://ywhvk48wn5.execute-api.us-west-2.amazonaws.com/dev';
     this.axiosConfig = {
@@ -34,6 +47,7 @@ class trackerApp {
     this.linkListeners();
   }
 
+  // Gumshoe
   // Add event listeners to log div time with Gumshoe
   gsDivListeners() {
     // When div becomes active on screen, activate Gumshoe
