@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { logDiv, logLink, logUser } from './tracker/apiCalls';
+// import { logDiv, logLink, logUser } from './apiCalls';
 
-function TrackerApp() {
+function Tracker() {
   // const [count, setCount] = useState(0)
   return (
     <div className="tracker">
@@ -10,4 +10,4 @@ function TrackerApp() {
   );
 }
 
-export default TrackerApp;
+export default Tracker;
