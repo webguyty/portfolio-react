@@ -41,6 +41,11 @@ class trackerApp {
       nested: true,
     });
 
+    // Configure for reading first div 'header' when page loads. If page is reloaded a reload message will appear
+    this.divStats.divName = 'header';
+    let now = new Date();
+    this.divStats.enterTime = now.toISOString();
+
     // Add gumshoe event listeners for logging divs visisted
     this.gsDivListeners();
     // Add listeners for logging links visisted
