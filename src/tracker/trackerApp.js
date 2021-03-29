@@ -11,6 +11,14 @@ class trackerApp {
         'Content-Type': 'application/json',
       },
     };
+
+    // For logging stats of the divs visited
+    this.divStats = {
+      divName: '',
+      enterTime: '',
+      exitTime: '',
+      divTime: '',
+    };
   }
 
   start() {
@@ -21,10 +29,54 @@ class trackerApp {
 
     // Log User information as soon user loads page
 
+    this.gsDivListeners();
+    // document.addEventListener(
+    //   'gumshoeActivate',
+    //   e => {
+    //     console.log(e.detail.content.id);
+    //   },
+    //   false
+    // );
+  }
+
+  gsDivListeners() {
+    // When div becomes active on screen, activate Gumshoe
     document.addEventListener(
       'gumshoeActivate',
-      e => {
-        console.log(e.detail.content.id);
+      event => {
+        // Div name
+        const divID = event.detail.content.id;
+        this.divStats.divName = divID;
+
+        // Div enter time
+        let now = new Date();
+        this.divStats.enterTime = now.toISOString();
+      },
+      false
+    );
+
+    // When div becomes deactive on screen, deactivate Gumshoe
+    document.addEventListener(
+      'gumshoeDeactivate',
+      event => {
+        const divID = event.detail.content.id;
+        let now = new Date();
+        now = now.toISOString();
+
+        // If things are are working correctly give exit time
+        if (divID === this.divStats.divName) {
+          // Div exit time
+          this.divStats.exitTime = now;
+        } else {
+          // Create a this.divStats object that had to result from page reload or some type of error
+          this.divStats.divName = `${divID} - page reloaded`;
+          this.divStats.enterTime = now;
+          this.divStats.exitTime = now;
+        }
+
+        this.logDiv(this.divStats);
+
+        this.divStats = {};
       },
       false
     );

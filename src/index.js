@@ -23,7 +23,7 @@ const tracker = new trackerApp();
 
 tracker.start();
 
-console.log('thiasdfasd fasf' + tracker.user);
+// console.log('thiasdfasd fasf' + tracker.user);
 
 ReactDOM.render(
   <React.StrictMode>
