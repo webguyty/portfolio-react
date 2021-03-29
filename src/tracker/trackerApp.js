@@ -12,7 +12,7 @@ class trackerApp {
       },
     };
 
-    // For logging stats of the divs visited
+    // For logging stats of the divs visited in GumShoe
     this.divStats = {
       divName: '',
       enterTime: '',
@@ -22,23 +22,19 @@ class trackerApp {
   }
 
   start() {
+    // init gumshoe
     const spy = new Gumshoe('#menu a', {
       offset: 200,
       nested: true,
     });
 
-    // Log User information as soon user loads page
-
+    // Add gumshoe event listeners for logging divs visisted
     this.gsDivListeners();
-    // document.addEventListener(
-    //   'gumshoeActivate',
-    //   e => {
-    //     console.log(e.detail.content.id);
-    //   },
-    //   false
-    // );
+    // Add listeners for logging links visisted
+    this.linkListeners();
   }
 
+  // Add event listeners to log div time with Gumshoe
   gsDivListeners() {
     // When div becomes active on screen, activate Gumshoe
     document.addEventListener(
@@ -80,6 +76,17 @@ class trackerApp {
       },
       false
     );
+  }
+
+  // Event listeners for links
+  linkListeners() {
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        this.logLink({ link: link.href });
+      });
+    });
   }
 
   //
