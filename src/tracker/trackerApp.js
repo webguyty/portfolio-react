@@ -59,7 +59,7 @@ class trackerApp {
   //
   // Gumshoe - div and link tracking
   // Add event listeners to log div time with Gumshoe
-  gsDivEnter(cb) {
+  gsDivEnter() {
     // When div becomes active on screen, activate Gumshoe
     document.addEventListener(
       'gumshoeActivate',
@@ -71,15 +71,12 @@ class trackerApp {
         // Div enter time
         let now = new Date();
         this.divStats.enterTime = now.toISOString();
-
-        // Pass time through callback for state in react component
-        if (cb) cb(now);
       },
       false
     );
   }
   // When div becomes deactive on screen, deactivate Gumshoe
-  gsDivExit(cb) {
+  gsDivExit() {
     document.addEventListener(
       'gumshoeDeactivate',
       event => {
@@ -99,9 +96,6 @@ class trackerApp {
         }
 
         this.logDiv(this.divStats);
-
-        // Pass divStats into cb for state in react
-        if (cb) cb(this.divStats);
 
         this.divStats = {};
       },
