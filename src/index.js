@@ -19,8 +19,8 @@ showData();
 // Send message component
 document.getElementById('form').addEventListener('submit', e => sendEmail(e));
 
-const tracker = new trackerApp();
-tracker.start();
+// const tracker = new trackerApp();
+// tracker.start();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -49,16 +49,17 @@ class trackerApp {
     let now = new Date();
     this.divStats.enterTime = now.toISOString();
 
-    // Add gumshoe event listeners for logging divs visisted
-    this.gsDivListeners();
+    // Add gumshoe event listeners for logging divs entered and exited
+    // this.gsDivEnter();
+    // this.gsDivExit();
     // Add listeners for logging links visisted
-    this.linkListeners();
+    // this.linkListeners();
   }
 
   //
   // Gumshoe - div and link tracking
   // Add event listeners to log div time with Gumshoe
-  gsDivListeners() {
+  gsDivEnter(cb) {
     // When div becomes active on screen, activate Gumshoe
     document.addEventListener(
       'gumshoeActivate',
@@ -70,11 +71,15 @@ class trackerApp {
         // Div enter time
         let now = new Date();
         this.divStats.enterTime = now.toISOString();
+
+        // Pass time through callback for state in react component
+        if (cb) cb(now);
       },
       false
     );
-
-    // When div becomes deactive on screen, deactivate Gumshoe
+  }
+  // When div becomes deactive on screen, deactivate Gumshoe
+  gsDivExit(cb) {
     document.addEventListener(
       'gumshoeDeactivate',
       event => {
@@ -94,6 +99,9 @@ class trackerApp {
         }
 
         this.logDiv(this.divStats);
+
+        // Pass divStats into cb for state in react
+        if (cb) cb(this.divStats);
 
         this.divStats = {};
       },
@@ -127,13 +135,24 @@ class trackerApp {
     }
   };
 
+  getUserByIP = async ip => {
+    try {
+      const res = await axios.get(`${this.apiURL}/user/${ip}`);
+
+      const user = res.data;
+      return user;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   logUser = async () => {
     try {
       const res = await axios.post(`${this.apiURL}/logUser`);
 
       const user = res.data;
 
-      // console.log(user);
+      console.log(user);
       return user;
     } catch (err) {
       console.log(err);
