@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const tracker = new trackerApp();
 
-const Tracker = props => {
+const Tracker = () => {
   const [user, setUser] = useState();
 
   let divStats = {
@@ -117,8 +117,17 @@ const Tracker = props => {
         info,
         tracker.axiosConfig
       );
+      // update component state
+      // ps = previous state
+      setUser(ps => ({
+        linksClicked: [...ps.linksClicked, res.data],
+        ip: ps.ip,
+        visits: ps.visits,
+        userLocation: ps.userLocation,
+        divVisits: [...ps.divVisits],
+      }));
 
-      console.log(res.data);
+      // console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -140,7 +149,7 @@ const Tracker = props => {
         {user.userLocation.zip}
       </p>
       <p>Links Clicked: </p>
-      {/* <ul>{user.linksClicked && user.linksClicked.map(l => <li>{l}</li>)}</ul> */}
+      <ul>{user.linksClicked && user.linksClicked.map(l => <li>{l}</li>)}</ul>
     </div>
   );
 };
