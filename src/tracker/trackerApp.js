@@ -41,6 +41,9 @@ class trackerApp {
       nested: true,
     });
 
+    // Log user's info into db and into user obj
+    this.logUser();
+
     // Configure for reading first div 'header' when page loads. If page is reloaded a reload message will appear
     this.divStats.divName = 'header';
     let now = new Date();
@@ -52,7 +55,8 @@ class trackerApp {
     this.linkListeners();
   }
 
-  // Gumshoe
+  //
+  // Gumshoe - div and link tracking
   // Add event listeners to log div time with Gumshoe
   gsDivListeners() {
     // When div becomes active on screen, activate Gumshoe
@@ -112,12 +116,24 @@ class trackerApp {
   // Api Calls
   //
 
+  getUser = async () => {
+    try {
+      const res = await axios.get(`${this.apiURL}/user`);
+
+      const user = res.data;
+      return user;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   logUser = async () => {
     try {
       const res = await axios.post(`${this.apiURL}/logUser`);
 
       const user = res.data;
-      console.log(user);
+
+      // console.log(user);
       return user;
     } catch (err) {
       console.log(err);
@@ -132,7 +148,7 @@ class trackerApp {
         this.axiosConfig
       );
 
-      console.log(res.data);
+      // console.log(res.data);
     } catch (err) {
       console.log(err);
     }
