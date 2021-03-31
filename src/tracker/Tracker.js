@@ -13,7 +13,7 @@ const Tracker = () => {
   const [zip, setZip] = useState('');
 
   const [links, setLinks] = useState([]);
-  // const [zip, setZip] = useState('');
+  const [divs, setDivs] = useState([]);
   // const [zip, setZip] = useState('');
   // const [zip, setZip] = useState('');
 
@@ -29,6 +29,7 @@ const Tracker = () => {
 
     let isMounted = true;
 
+    // Wait 1 second for userLocation to finish loading
     setTimeout(() => {
       tracker.getUser().then(res => {
         setIP(res.ip);
@@ -41,6 +42,10 @@ const Tracker = () => {
 
         if (res.linksClicked) {
           setLinks(res.linksClicked);
+        }
+
+        if (res.divVisits) {
+          setDivs(res.divVisits);
         }
 
         if (isMounted) setUser(res);
@@ -139,6 +144,7 @@ const Tracker = () => {
       //   ...ps,
       //   divVisits: [...ps.divVisits, div],
       // }));
+      setDivs(ps => [...ps, div]);
     } catch (err) {
       console.log(err);
     }
@@ -172,16 +178,18 @@ const Tracker = () => {
       <p>
         User: {ip}, County: {country}, State: {state}, City: {city}, Zip: {zip}
       </p>
-      <p>Links Clicked: </p>
+      {/* <p>Links Clicked: </p>
       <ul>
         {links.map(l => (
           <li>{l}</li>
         ))}
-      </ul>
-      {/* <ul>
-        {user.divVisits &&
-          user.divVisits.map(l => <li>{JSON.stringify(l)}</li>)}
       </ul> */}
+      <p>Divs visited: </p>
+      <ul>
+        {divs.map(d => (
+          <li>{JSON.stringify(d)}</li>
+        ))}
+      </ul>
     </div>
   );
 };
