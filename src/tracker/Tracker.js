@@ -5,7 +5,17 @@ import axios from 'axios';
 const tracker = new trackerApp();
 
 const Tracker = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
+  const [ip, setIP] = useState('');
+  const [city, setCity] = useState('asdf');
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+
+  const [links, setLinks] = useState([]);
+  // const [zip, setZip] = useState('');
+  // const [zip, setZip] = useState('');
+  // const [zip, setZip] = useState('');
 
   let divStats = {
     divName: '',
@@ -17,13 +27,34 @@ const Tracker = () => {
   useEffect(() => {
     tracker.start();
 
-    tracker.getUser().then(res => {
-      setUser(res);
-    });
+    let isMounted = true;
 
+    setTimeout(() => {
+      tracker.getUser().then(res => {
+        setIP(res.ip);
+        console.log(res.userLocation);
+        let { city, country, state, zip } = res.userLocation;
+        setCity(city);
+        setCountry(country);
+        setState(state);
+        setZip(zip);
+
+        if (res.linksClicked) {
+          setLinks(res.linksClicked);
+        }
+
+        if (isMounted) setUser(res);
+      });
+    }, 1000);
+
+    // Initialize tracker
     gsDivEnter();
     gsDivExit();
     linkListeners();
+
+    return () => {
+      isMounted = false;
+    }; // use effect cleanup to set flag false, if unmounted
   }, []);
 
   //
@@ -90,9 +121,6 @@ const Tracker = () => {
     links.forEach(link => {
       link.addEventListener('click', e => {
         logLink({ link: link.href });
-
-        // cb for state in react
-        // if (cb) cb(link.href);
       });
     });
   }
@@ -104,8 +132,13 @@ const Tracker = () => {
         info,
         tracker.axiosConfig
       );
-
-      // console.log(res.data);
+      const div = res.data;
+      // update component state
+      // ps = previous state
+      // setUser(ps => ({
+      //   ...ps,
+      //   divVisits: [...ps.divVisits, div],
+      // }));
     } catch (err) {
       console.log(err);
     }
@@ -117,17 +150,10 @@ const Tracker = () => {
         info,
         tracker.axiosConfig
       );
-      // update component state
-      // ps = previous state
-      setUser(ps => ({
-        linksClicked: [...ps.linksClicked, res.data],
-        ip: ps.ip,
-        visits: ps.visits,
-        userLocation: ps.userLocation,
-        divVisits: [...ps.divVisits],
-      }));
 
-      // console.log(res.data);
+      let link = res.data;
+      // For state
+      setLinks(ps => [...ps, link]);
     } catch (err) {
       console.log(err);
     }
@@ -144,12 +170,18 @@ const Tracker = () => {
   return (
     <div className="tracker">
       <p>
-        User: {user.ip}, County: {user.userLocation.country}, State:{' '}
-        {user.userLocation.state}, City: {user.userLocation.city}, Zip:{' '}
-        {user.userLocation.zip}
+        User: {ip}, County: {country}, State: {state}, City: {city}, Zip: {zip}
       </p>
       <p>Links Clicked: </p>
-      <ul>{user.linksClicked && user.linksClicked.map(l => <li>{l}</li>)}</ul>
+      <ul>
+        {links.map(l => (
+          <li>{l}</li>
+        ))}
+      </ul>
+      {/* <ul>
+        {user.divVisits &&
+          user.divVisits.map(l => <li>{JSON.stringify(l)}</li>)}
+      </ul> */}
     </div>
   );
 };
