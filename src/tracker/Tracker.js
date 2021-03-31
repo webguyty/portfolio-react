@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import trackerApp from './trackerApp';
 import axios from 'axios';
 
+import Grid from '@material-ui/core/Grid';
+import UserInfo from './components/UserInfo';
+
 const tracker = new trackerApp();
 
 const Tracker = () => {
@@ -109,10 +112,7 @@ const Tracker = () => {
         }
 
         logDiv(divStats);
-
-        // Pass divStats into cb for state in react
-        // if (cb) cb(divStats);
-
+        // clear the div
         divStats = {};
       },
       false
@@ -120,7 +120,7 @@ const Tracker = () => {
   }
 
   // Event listeners for links
-  function linkListeners(cb) {
+  function linkListeners() {
     const links = document.querySelectorAll('a');
 
     links.forEach(link => {
@@ -138,12 +138,7 @@ const Tracker = () => {
         tracker.axiosConfig
       );
       const div = res.data;
-      // update component state
-      // ps = previous state
-      // setUser(ps => ({
-      //   ...ps,
-      //   divVisits: [...ps.divVisits, div],
-      // }));
+
       setDivs(ps => [...ps, div]);
     } catch (err) {
       console.log(err);
@@ -175,6 +170,11 @@ const Tracker = () => {
 
   return (
     <div className="tracker">
+      <Grid container spacing={3}>
+        <Grid item xs={3}>
+          <UserInfo />
+        </Grid>
+      </Grid>
       <p>
         User: {ip}, County: {country}, State: {state}, City: {city}, Zip: {zip}
       </p>
