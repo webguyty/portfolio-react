@@ -1,4 +1,13 @@
 .userInfo {
   color: black;
   background-color: rgb(212, 212, 212);
+  padding: 0.2rem 1rem;
+
+  &__title {
+    font-size: 2rem;
+  }
+
+  &__info {
+    // font-size: 2rem;
+  }
 }

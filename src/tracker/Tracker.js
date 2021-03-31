@@ -170,9 +170,22 @@ const Tracker = () => {
 
   return (
     <div className="tracker">
+      {/* User Information */}
       <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <UserInfo />
+        <Grid item xs={2}>
+          <UserInfo title="User" info={ip} />
+        </Grid>
+        <Grid item xs={2}>
+          <UserInfo title="Country" info={country} />
+        </Grid>
+        <Grid item xs={2}>
+          <UserInfo title="State" info={state} />
+        </Grid>
+        <Grid item xs={2}>
+          <UserInfo title="City" info={city} />
+        </Grid>
+        <Grid item xs={2}>
+          <UserInfo title="Zip" info={zip} />
         </Grid>
       </Grid>
       <p>
