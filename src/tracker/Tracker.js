@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
+import DivsVisited from './components/DivsVisited';
 
 const tracker = new trackerApp();
 
@@ -30,7 +31,6 @@ const Tracker = () => {
 
     (async () => {
       const res = await tracker.logUser();
-      console.log(res);
       setUser(res);
       setIP(res.ip);
       let { city, country, state, zip } = res.userLocation;
@@ -51,10 +51,9 @@ const Tracker = () => {
   }, []);
 
   //
-  // API Calls
+  // Event listeners
   //
 
-  //
   // Gumshoe - div and link tracking
   // Add event listeners to log div time with Gumshoe
   function gsDivEnter() {
@@ -114,6 +113,10 @@ const Tracker = () => {
       });
     });
   }
+
+  //
+  // API Calls
+  //
 
   async function logDiv(info) {
     try {
@@ -180,11 +183,12 @@ const Tracker = () => {
         ))}
       </ul> */}
       <p>Divs visited: </p>
-      <ul>
+      <DivsVisited divs={divs} />
+      {/* <ul>
         {divs.map(d => (
           <li>{JSON.stringify(d)}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
     // End user location
   );
