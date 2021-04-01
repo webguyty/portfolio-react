@@ -42,7 +42,7 @@ class trackerApp {
     });
 
     // Log user's info into db and into user obj
-    this.logUser();
+    // this.logUser();
 
     // Configure for reading first div 'header' when page loads. If page is reloaded a reload message will appear
     this.divStats.divName = 'header';
@@ -123,6 +123,7 @@ class trackerApp {
       const res = await axios.get(`${this.apiURL}/user`);
 
       const user = res.data;
+      console.log(res);
       return user;
     } catch (err) {
       console.log(err);
@@ -146,7 +147,6 @@ class trackerApp {
 
       const user = res.data;
 
-      console.log(user);
       return user;
     } catch (err) {
       console.log(err);

@@ -17,8 +17,6 @@ const Tracker = () => {
 
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
-  // const [zip, setZip] = useState('');
-  // const [zip, setZip] = useState('');
 
   let divStats = {
     divName: '',
@@ -30,39 +28,26 @@ const Tracker = () => {
   useEffect(() => {
     tracker.start();
 
-    let isMounted = true;
+    (async () => {
+      const res = await tracker.logUser();
+      console.log(res);
+      setUser(res);
+      setIP(res.ip);
+      let { city, country, state, zip } = res.userLocation;
+      setCity(city);
+      setCountry(country);
+      setState(state);
+      setZip(zip);
 
-    // Wait 1 second for userLocation to finish loading
-    setTimeout(() => {
-      tracker.getUser().then(res => {
-        setIP(res.ip);
-        console.log(res.userLocation);
-        let { city, country, state, zip } = res.userLocation;
-        setCity(city);
-        setCountry(country);
-        setState(state);
-        setZip(zip);
+      if (res.linksClicked) setLinks(res.linksClicked);
 
-        if (res.linksClicked) {
-          setLinks(res.linksClicked);
-        }
-
-        if (res.divVisits) {
-          setDivs(res.divVisits);
-        }
-
-        if (isMounted) setUser(res);
-      });
-    }, 1000);
+      if (res.divVisits) setDivs(res.divVisits);
+    })();
 
     // Initialize tracker
     gsDivEnter();
     gsDivExit();
     linkListeners();
-
-    return () => {
-      isMounted = false;
-    }; // use effect cleanup to set flag false, if unmounted
   }, []);
 
   //
@@ -170,7 +155,6 @@ const Tracker = () => {
 
   return (
     <div className="tracker">
-      {/* User Information */}
       <Grid container spacing={3}>
         <Grid item xs={2}>
           <UserInfo title="User" info={ip} />
@@ -188,9 +172,7 @@ const Tracker = () => {
           <UserInfo title="Zip" info={zip} />
         </Grid>
       </Grid>
-      <p>
-        User: {ip}, County: {country}, State: {state}, City: {city}, Zip: {zip}
-      </p>
+
       {/* <p>Links Clicked: </p>
       <ul>
         {links.map(l => (
@@ -204,6 +186,7 @@ const Tracker = () => {
         ))}
       </ul>
     </div>
+    // End user location
   );
 };
 
