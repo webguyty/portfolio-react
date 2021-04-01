@@ -10,7 +10,28 @@ import Paper from '@material-ui/core/Paper';
 const DivsVisited = ({ divs, arrLength }) => {
   let divsMod = divs.slice(-arrLength).reverse();
 
-  console.log(divsMod);
+  if (!divs)
+    return (
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Div name</TableCell>
+              <TableCell align="right">Time on Div (seconds)</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell component="th" scope="row">
+                No Div's visited
+              </TableCell>
+              <TableCell align="right">0.0</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+
   return (
     <div className="tracker__divsVisited">
       <TableContainer component={Paper}>
@@ -19,19 +40,19 @@ const DivsVisited = ({ divs, arrLength }) => {
             <TableRow>
               <TableCell>Div name</TableCell>
               <TableCell align="right">Time on Div (seconds)</TableCell>
-              <TableCell align="right">Enter Time</TableCell>
-              <TableCell align="right">Exit Time</TableCell>
+              {/* <TableCell align="right">Enter Time</TableCell>
+              <TableCell align="right">Exit Time</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {divsMod.map(div => (
-              <TableRow key={div.enterTime}>
+            {divsMod.map((div, i) => (
+              <TableRow key={i}>
                 <TableCell component="th" scope="row">
                   {div.divName}
                 </TableCell>
                 <TableCell align="right">{div.timeOnDivSec}</TableCell>
-                <TableCell align="right">{div.enterTime}</TableCell>
-                <TableCell align="right">{div.exitTime}</TableCell>
+                {/* <TableCell align="right">{div.enterTime}</TableCell>
+                <TableCell align="right">{div.exitTime}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>

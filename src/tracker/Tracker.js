@@ -5,6 +5,7 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
 import DivsVisited from './components/DivsVisited';
+import LinksVisited from './components/LinksVisited';
 
 const tracker = new trackerApp();
 
@@ -182,15 +183,17 @@ const Tracker = () => {
           <li>{l}</li>
         ))}
       </ul> */}
-      <p>Divs visited: </p>
-      <DivsVisited divs={divs} />
-      {/* <ul>
-        {divs.map(d => (
-          <li>{JSON.stringify(d)}</li>
-        ))}
-      </ul> */}
+      <Grid container>
+        <Grid item>
+          <p>Divs visited: </p>
+          <DivsVisited divs={divs} />
+        </Grid>
+        <Grid item>
+          <p>Links Clicked on: </p>
+          <LinksVisited links={links} />
+        </Grid>
+      </Grid>
     </div>
-    // End user location
   );
 };
 
