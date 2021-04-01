@@ -123,7 +123,11 @@ class trackerApp {
       const res = await axios.get(`${this.apiURL}/user`);
 
       const user = res.data;
+<<<<<<< HEAD
       console.log(res);
+=======
+      console.log(user);
+>>>>>>> 575a4724902fba699b203cdb64b87dcc4b43b018
       return user;
     } catch (err) {
       console.log(err);
