@@ -8,6 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 const DivsVisited = ({ divs, arrLength }) => {
+  // console.log(divs);
+  // let divsMod = divs;
   let divsMod = divs.slice(-arrLength).reverse();
 
   if (!divs)
@@ -40,27 +42,18 @@ const DivsVisited = ({ divs, arrLength }) => {
             <TableRow>
               <TableCell>Div name</TableCell>
               <TableCell align="right">Time on Div (seconds)</TableCell>
-              {/* <TableCell align="right">Enter Time</TableCell>
-              <TableCell align="right">Exit Time</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {divsMod.map((div, i) => (
               <TableRow key={i}>
-                <TableCell component="th" scope="row">
-                  {div.divName}
-                </TableCell>
+                <TableCell>{div.divName}</TableCell>
                 <TableCell align="right">{div.timeOnDivSec}</TableCell>
-                {/* <TableCell align="right">{div.enterTime}</TableCell>
-                <TableCell align="right">{div.exitTime}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {/* {divsMod.map(d => (
-        <li>{JSON.stringify(d)}</li>
-      ))} */}
     </div>
   );
 };

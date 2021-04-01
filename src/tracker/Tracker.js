@@ -19,6 +19,7 @@ const Tracker = () => {
 
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
+  const [divsFiltered, setDivsFiltered] = useState([]);
 
   let divStats = {
     divName: '',
@@ -42,7 +43,12 @@ const Tracker = () => {
 
       if (res.linksClicked) setLinks(res.linksClicked);
 
-      if (res.divVisits) setDivs(res.divVisits);
+      if (res.divVisits) {
+        setDivs(res.divVisits);
+        // Filter out visits for less than 0.5s for simple display
+        let filtered = res.divVisits.filter(d => d.timeOnDivSec > 0.4);
+        setDivsFiltered(filtered);
+      }
     })();
 
     // Initialize tracker
@@ -50,6 +56,11 @@ const Tracker = () => {
     gsDivExit();
     linkListeners();
   }, []);
+
+  useEffect(() => {
+    let filtered = divs.filter(d => d.timeOnDivSec > 0.5);
+    setDivsFiltered(filtered);
+  }, [divs]);
 
   //
   // Event listeners
@@ -109,7 +120,7 @@ const Tracker = () => {
     const links = document.querySelectorAll('a');
 
     links.forEach(link => {
-      link.addEventListener('click', e => {
+      link.addEventListener('mousedown', e => {
         logLink({ link: link.href });
       });
     });
@@ -177,17 +188,12 @@ const Tracker = () => {
         </Grid>
       </Grid>
 
-      {/* <p>Links Clicked: </p>
-      <ul>
-        {links.map(l => (
-          <li>{l}</li>
-        ))}
-      </ul> */}
       <Grid container spacing={3}>
         <Grid item>
           <p>Divs visited: </p>
-          <DivsVisited divs={divs} />
+          {divsFiltered && <DivsVisited divs={divsFiltered} />}
         </Grid>
+
         <Grid item>
           <p>Links Clicked on: </p>
           <LinksVisited links={links} />
