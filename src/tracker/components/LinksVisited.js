@@ -1,13 +1,19 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
 
-const LinksVisited = ({ arrLength }) => {
+const LinksVisited = ({ links, arrLength }) => {
+  links.length === 0
+    ? (links = ['No links have been clicked on'])
+    : (links = links.slice(-arrLength).reverse());
+
   return (
     <div className="tracker__linksVisited">
-      <List>
-        <ListItem>asdf</ListItem>
+      <List component={Paper}>
+        {links.map((l, i) => (
+          <ListItem key={i}>{l}</ListItem>
+        ))}
       </List>
     </div>
   );
@@ -15,5 +21,6 @@ const LinksVisited = ({ arrLength }) => {
 
 LinksVisited.defaultProps = {
   arrLength: 10,
+  links: [],
 };
 export default LinksVisited;

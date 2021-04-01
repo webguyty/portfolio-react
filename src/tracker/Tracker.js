@@ -183,7 +183,7 @@ const Tracker = () => {
           <li>{l}</li>
         ))}
       </ul> */}
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item>
           <p>Divs visited: </p>
           <DivsVisited divs={divs} />
