@@ -10,7 +10,8 @@ const tracker = new trackerApp();
 const Tracker = () => {
   const [user, setUser] = useState({});
   const [ip, setIP] = useState('');
-  const [city, setCity] = useState('asdf');
+  // const [userLocation, setUserLocation] = useState({});
+  const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
@@ -32,28 +33,29 @@ const Tracker = () => {
 
     let isMounted = true;
 
-    // Wait 1 second for userLocation to finish loading
-    setTimeout(() => {
-      tracker.getUser().then(res => {
+    tracker.getUser().then(res => {
+      // setUser(res);
+
+      if (isMounted) {
+        setUser(res);
         setIP(res.ip);
-        console.log(res.userLocation);
-        let { city, country, state, zip } = res.userLocation;
-        setCity(city);
-        setCountry(country);
-        setState(state);
-        setZip(zip);
+        setCity(res.userLocation.city);
+        setCountry(res.userLocation.country);
+        setState(res.userLocation.state);
+        setZip(res.userLocation.zip);
+      }
+    });
 
-        if (res.linksClicked) {
-          setLinks(res.linksClicked);
-        }
+    // setUserLocation(user.userLocation);
+    // console.log();
 
-        if (res.divVisits) {
-          setDivs(res.divVisits);
-        }
+    if (user.linksClicked) {
+      setLinks(user.linksClicked);
+    }
 
-        if (isMounted) setUser(res);
-      });
-    }, 1000);
+    if (user.divVisits) {
+      setDivs(user.divVisits);
+    }
 
     // Initialize tracker
     gsDivEnter();
@@ -61,9 +63,29 @@ const Tracker = () => {
     linkListeners();
 
     return () => {
-      isMounted = false;
-    }; // use effect cleanup to set flag false, if unmounted
+      isMounted = false; // use effect cleanup to set flag false, if unmounted
+    };
   }, []);
+
+  // useEffect(() => {
+  //   // let { city, country, state, zip } = userLocation;
+  //   setIP(user.ip);
+  //   setCity(user.userLocation.city);
+  //   setCountry(user.userLocation.country);
+  //   setState(user.userLocation.state);
+  //   setZip(user.userLocation.zip);
+  //   // if (user.userLocation) {
+  //   //   if (user.userLocation) setIP(user.ip);
+  //   //   if (user.userLocation.city) setCity(user.userLocation.city);
+  //   //   if (user.userLocation.country) setCountry(user.userLocation.country);
+  //   //   if (user.userLocation.state) setState(user.userLocation.state);
+  //   //   if (user.userLocation.zip) setZip(user.userLocation.zip);
+  //   // }
+  //   // setCity(city);
+  //   // setCountry(country);
+  //   // setState(state);
+  //   // setZip(zip);
+  // }, [user.userLocation]);
 
   //
   // API Calls

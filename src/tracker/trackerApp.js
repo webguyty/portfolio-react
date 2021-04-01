@@ -123,6 +123,7 @@ class trackerApp {
       const res = await axios.get(`${this.apiURL}/user`);
 
       const user = res.data;
+      console.log(user);
       return user;
     } catch (err) {
       console.log(err);
@@ -146,7 +147,6 @@ class trackerApp {
 
       const user = res.data;
 
-      console.log(user);
       return user;
     } catch (err) {
       console.log(err);
