@@ -10,8 +10,7 @@ const tracker = new trackerApp();
 const Tracker = () => {
   const [user, setUser] = useState({});
   const [ip, setIP] = useState('');
-  // const [userLocation, setUserLocation] = useState({});
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState('asdf');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
@@ -29,7 +28,6 @@ const Tracker = () => {
   useEffect(() => {
     tracker.start();
 
-<<<<<<< HEAD
     (async () => {
       const res = await tracker.logUser();
       console.log(res);
@@ -45,66 +43,12 @@ const Tracker = () => {
 
       if (res.divVisits) setDivs(res.divVisits);
     })();
-=======
-    let isMounted = true;
-
-    tracker.getUser().then(res => {
-      // setUser(res);
-
-      if (isMounted) {
-        setUser(res);
-        setIP(res.ip);
-        setCity(res.userLocation.city);
-        setCountry(res.userLocation.country);
-        setState(res.userLocation.state);
-        setZip(res.userLocation.zip);
-      }
-    });
-
-    // setUserLocation(user.userLocation);
-    // console.log();
-
-    if (user.linksClicked) {
-      setLinks(user.linksClicked);
-    }
-
-    if (user.divVisits) {
-      setDivs(user.divVisits);
-    }
->>>>>>> 575a4724902fba699b203cdb64b87dcc4b43b018
 
     // Initialize tracker
     gsDivEnter();
     gsDivExit();
     linkListeners();
-<<<<<<< HEAD
-=======
-
-    return () => {
-      isMounted = false; // use effect cleanup to set flag false, if unmounted
-    };
->>>>>>> 575a4724902fba699b203cdb64b87dcc4b43b018
   }, []);
-
-  // useEffect(() => {
-  //   // let { city, country, state, zip } = userLocation;
-  //   setIP(user.ip);
-  //   setCity(user.userLocation.city);
-  //   setCountry(user.userLocation.country);
-  //   setState(user.userLocation.state);
-  //   setZip(user.userLocation.zip);
-  //   // if (user.userLocation) {
-  //   //   if (user.userLocation) setIP(user.ip);
-  //   //   if (user.userLocation.city) setCity(user.userLocation.city);
-  //   //   if (user.userLocation.country) setCountry(user.userLocation.country);
-  //   //   if (user.userLocation.state) setState(user.userLocation.state);
-  //   //   if (user.userLocation.zip) setZip(user.userLocation.zip);
-  //   // }
-  //   // setCity(city);
-  //   // setCountry(country);
-  //   // setState(state);
-  //   // setZip(zip);
-  // }, [user.userLocation]);
 
   //
   // API Calls
