@@ -12,7 +12,7 @@ const tracker = new trackerApp();
 const Tracker = () => {
   const [user, setUser] = useState({});
   const [ip, setIP] = useState('');
-  const [city, setCity] = useState('asdf');
+  const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
@@ -20,6 +20,9 @@ const Tracker = () => {
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
   const [divsFiltered, setDivsFiltered] = useState([]);
+  const [sessions, setSessions] = useState({});
+  const [sessionCount, setSessionCount] = useState(0);
+  const [sessionTime, setSessionTime] = useState(0);
 
   let divStats = {
     divName: '',
@@ -56,6 +59,12 @@ const Tracker = () => {
         // Filter out visits for less than 0.5s for simple display
         let filtered = res.divVisits.filter(d => d.timeOnDivSec > 0.4);
         setDivsFiltered(filtered);
+      }
+
+      if (res.sessions) setSessions(res.sessions);
+      if (res.sessionsInfo) {
+        setSessionCount(res.sessionsInfo.count);
+        setSessionTime(res.sessionsInfo.totalTime);
       }
     })();
 
