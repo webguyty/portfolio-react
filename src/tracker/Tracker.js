@@ -28,6 +28,14 @@ const Tracker = () => {
     divTime: '',
   };
 
+  let sessionStats = {
+    enterTime: '',
+    exitTime: '',
+  };
+
+  //
+  // Tracker initialization and state set up
+  //
   useEffect(() => {
     tracker.start();
 
@@ -52,18 +60,43 @@ const Tracker = () => {
     })();
 
     // Initialize optional tracker
+    trackSessions();
     trackDivs();
     trackLinks();
   }, []);
 
+  // Filter out div's in FE with less than 0.5s for display
   useEffect(() => {
     let filtered = divs.filter(d => d.timeOnDivSec > 0.5);
     setDivsFiltered(filtered);
   }, [divs]);
 
   //
-  // Event listeners
+  // Tracker functionality + state management
   //
+
+  function trackSessions() {
+    // add start time for session tracking
+    let now = new Date();
+    sessionStats.enterTime = now.toISOString();
+
+    window.addEventListener('visibilitychange', () => {
+      // If user hides and comes back to page consider it a new session
+      if (document.visibilityState === 'visible') {
+        sessionStats.enterTime = new Date().toISOString();
+      }
+
+      // If user leaves or hides page send logSession API call
+      if (document.visibilityState === 'hidden') {
+        sessionStats.exitTime = new Date().toISOString();
+
+        logSession(sessionStats);
+
+        sessionStats.enterTime = '';
+        sessionStats.exitTime = '';
+      }
+    });
+  }
 
   //
   // Gumshoe - div and link tracking
@@ -132,6 +165,20 @@ const Tracker = () => {
   //
   // API Calls
   //
+  async function logSession(info) {
+    try {
+      const res = await fetch(`${tracker.apiURL}/logSession`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info),
+        keepalive: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   async function logDiv(info) {
     try {
