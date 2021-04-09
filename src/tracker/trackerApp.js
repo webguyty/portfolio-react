@@ -18,7 +18,8 @@ class trackerApp {
       linksClicked: [],
     };
 
-    this.apiURL = 'https://ywhvk48wn5.execute-api.us-west-2.amazonaws.com/dev';
+    this.apiURL =
+      'https://i3ob4hyw0g.execute-api.us-west-2.amazonaws.com/reactdev';
     this.axiosConfig = {
       headers: {
         'Content-Type': 'application/json',
@@ -41,19 +42,9 @@ class trackerApp {
       nested: true,
     });
 
-    // Log user's info into db and into user obj
-    // this.logUser();
-
-    // Configure for reading first div 'header' when page loads. If page is reloaded a reload message will appear
     this.divStats.divName = 'header';
     let now = new Date();
     this.divStats.enterTime = now.toISOString();
-
-    // Add gumshoe event listeners for logging divs entered and exited
-    // this.gsDivEnter();
-    // this.gsDivExit();
-    // Add listeners for logging links visisted
-    // this.linkListeners();
   }
 
   //

@@ -51,10 +51,9 @@ const Tracker = () => {
       }
     })();
 
-    // Initialize tracker
-    gsDivEnter();
-    gsDivExit();
-    linkListeners();
+    // Initialize optional tracker
+    trackDivs();
+    trackLinks();
   }, []);
 
   useEffect(() => {
@@ -66,9 +65,17 @@ const Tracker = () => {
   // Event listeners
   //
 
+  //
   // Gumshoe - div and link tracking
-  // Add event listeners to log div time with Gumshoe
-  function gsDivEnter() {
+  //
+
+  function trackDivs() {
+    // Configure for reading first div 'header' when page loads. If page is reloaded a reload message will appear
+    divStats.divName = 'header';
+    let now = new Date();
+    divStats.enterTime = now.toISOString();
+
+    // Add event listeners to log div time with Gumshoe
     // When div becomes active on screen, activate Gumshoe
     document.addEventListener(
       'gumshoeActivate',
@@ -80,15 +87,11 @@ const Tracker = () => {
         // Div enter time
         let now = new Date();
         divStats.enterTime = now.toISOString();
-
-        // Pass time through callback for state in react component
-        // if (cb) cb(now);
       },
       false
     );
-  }
-  // When div becomes deactive on screen, deactivate Gumshoe
-  function gsDivExit() {
+
+    // When div becomes deactive on screen, deactivate Gumshoe
     document.addEventListener(
       'gumshoeDeactivate',
       event => {
@@ -108,7 +111,7 @@ const Tracker = () => {
         }
 
         logDiv(divStats);
-        // clear the div
+
         divStats = {};
       },
       false
@@ -116,11 +119,11 @@ const Tracker = () => {
   }
 
   // Event listeners for links
-  function linkListeners() {
+  function trackLinks() {
     const links = document.querySelectorAll('a');
 
     links.forEach(link => {
-      link.addEventListener('mousedown', e => {
+      link.addEventListener('click', e => {
         logLink({ link: link.href });
       });
     });
