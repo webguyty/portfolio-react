@@ -10,7 +10,7 @@ import LinksVisited from './components/LinksVisited';
 const tracker = new trackerApp();
 
 const Tracker = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [ip, setIP] = useState('');
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
@@ -20,7 +20,7 @@ const Tracker = () => {
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
   const [divsFiltered, setDivsFiltered] = useState([]);
-  const [sessions, setSessions] = useState({});
+  const [sessions, setSessions] = useState();
   const [sessionCount, setSessionCount] = useState(0);
   const [sessionTime, setSessionTime] = useState(0);
 
@@ -39,40 +39,46 @@ const Tracker = () => {
   //
   // Tracker initialization and state set up
   //
-  useEffect(() => {
+  useEffect(async () => {
     tracker.start();
 
-    (async () => {
-      const res = await tracker.logUser();
-      setUser(res);
-      setIP(res.ip);
-      let { city, country, state, zip } = res.userLocation;
-      setCity(city);
-      setCountry(country);
-      setState(state);
-      setZip(zip);
-
-      if (res.linksClicked) setLinks(res.linksClicked);
-
-      if (res.divVisits) {
-        setDivs(res.divVisits);
-        // Filter out visits for less than 0.5s for simple display
-        let filtered = res.divVisits.filter(d => d.timeOnDivSec > 0.4);
-        setDivsFiltered(filtered);
-      }
-
-      if (res.sessions) setSessions(res.sessions);
-      if (res.sessionsInfo) {
-        setSessionCount(res.sessionsInfo.count);
-        setSessionTime(res.sessionsInfo.totalTime);
-      }
-    })();
+    // (async () => {
+    const res = await tracker.logUser();
+    setUser(res);
+    // })();
 
     // Initialize optional tracker
     trackSessions();
     trackDivs();
     trackLinks();
   }, []);
+
+  // Set state of user object
+  useEffect(() => {
+    if (user) {
+      setIP(user.ip);
+      let { city, country, state, zip } = user.userLocation;
+      setCity(city);
+      setCountry(country);
+      setState(state);
+      setZip(zip);
+
+      if (user.linksClicked) setLinks(user.linksClicked);
+
+      if (user.divVisits) {
+        setDivs(user.divVisits);
+        // Filter out visits for less than 0.5s for simple display
+        let filtered = user.divVisits.filter(d => d.timeOnDivSec > 0.4);
+        setDivsFiltered(filtered);
+      }
+
+      if (user.sessions) setSessions(user.sessions);
+      if (user.sessionsInfo) {
+        setSessionCount(user.sessionsInfo.count);
+        setSessionTime(user.sessionsInfo.totalTime);
+      }
+    }
+  }, [user]);
 
   // Filter out div's in FE with less than 0.5s for display
   useEffect(() => {
