@@ -39,16 +39,21 @@ const Tracker = () => {
   //
   // Tracker initialization and state set up
   //
-  useEffect(async () => {
+  useEffect(() => {
     tracker.start();
 
-    const res = await tracker.logUser();
-    setUser(res);
+    const populateUser = async () => {
+      const res = await tracker.logUser();
+      setUser(res);
+    };
+
+    populateUser();
 
     // Initialize optional trackers
     trackSessions();
     trackDivs();
     trackLinks();
+    // eslint-disable-next-line
   }, []);
 
   // Set state of user object
@@ -186,7 +191,7 @@ const Tracker = () => {
   //
   async function logSession(info) {
     try {
-      const res = await fetch(`${tracker.apiURL}/logSession`, {
+      await fetch(`${tracker.apiURL}/logSession`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -280,7 +285,7 @@ const Tracker = () => {
           <LinksVisited links={links} />
         </Grid>
 
-        <Grid item xs={6} spacing={3} direction={'row'}>
+        <Grid item xs={6}>
           <p>Sessions: </p>
           <Grid container spacing={3}>
             <Grid item xs={6}>

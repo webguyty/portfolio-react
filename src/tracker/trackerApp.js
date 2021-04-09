@@ -37,6 +37,7 @@ class trackerApp {
 
   start() {
     // init gumshoe
+    // eslint-disable-next-line
     const spy = new Gumshoe('#menu a', {
       offset: 200,
       nested: true,
@@ -145,11 +146,7 @@ class trackerApp {
 
   logDiv = async info => {
     try {
-      const res = await axios.patch(
-        `${this.apiURL}/logDiv`,
-        info,
-        this.axiosConfig
-      );
+      await axios.patch(`${this.apiURL}/logDiv`, info, this.axiosConfig);
 
       // console.log(res.data);
     } catch (err) {
