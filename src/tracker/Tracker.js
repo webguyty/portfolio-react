@@ -95,10 +95,13 @@ const Tracker = () => {
     let now = new Date();
     sessionStats.enterTime = now.toISOString();
 
-    window.addEventListener('visibilitychange', () => {
+    window.addEventListener('visibilitychange', async () => {
       // If user hides and comes back to page consider it a new session
       if (document.visibilityState === 'visible') {
+        // Call getUserInfo when visible to reload user object for displaying sessions
         getUserInfo();
+        // let u = await getUserInfo();
+        // setUser(u);
         sessionStats.enterTime = new Date().toISOString();
       }
 
@@ -231,8 +234,8 @@ const Tracker = () => {
       const res = await axios.get(`${tracker.apiURL}/user`);
 
       const user = res.data;
-      console.log(user);
-      setUser('get user fired' + user);
+      // console.log(user);
+      setUser(user);
     } catch (err) {
       console.log(err);
     }
@@ -272,10 +275,31 @@ const Tracker = () => {
           {divsFiltered && <DivsVisited divs={divsFiltered} />}
         </Grid>
 
-        <Grid item>
+        <Grid item xs={3}>
           <p>Links Clicked on: </p>
           <LinksVisited links={links} />
         </Grid>
+
+        <Grid item xs={6} spacing={3} direction={'row'}>
+          <p>Sessions: </p>
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <UserInfo title="Session Count" info={sessionCount} />
+            </Grid>
+            <Grid item xs={6}>
+              <UserInfo title="Session Time" info={sessionTime} />
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {/* <Grid item xs={12}>
+            <p>Sessions: </p>
+            <UserInfo title="Session Count" info={sessionCount} />
+          </Grid>
+          <Grid item xs={6}>
+            <p>shit</p>
+          </Grid>
+        */}
       </Grid>
     </div>
   );
