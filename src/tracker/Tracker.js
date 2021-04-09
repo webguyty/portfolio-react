@@ -42,12 +42,10 @@ const Tracker = () => {
   useEffect(async () => {
     tracker.start();
 
-    // (async () => {
     const res = await tracker.logUser();
     setUser(res);
-    // })();
 
-    // Initialize optional tracker
+    // Initialize optional trackers
     trackSessions();
     trackDivs();
     trackLinks();
@@ -57,11 +55,13 @@ const Tracker = () => {
   useEffect(() => {
     if (user) {
       setIP(user.ip);
-      let { city, country, state, zip } = user.userLocation;
-      setCity(city);
-      setCountry(country);
-      setState(state);
-      setZip(zip);
+      if (user.userLocation) {
+        let { city, country, state, zip } = user?.userLocation;
+        setCity(city);
+        setCountry(country);
+        setState(state);
+        setZip(zip);
+      }
 
       if (user.linksClicked) setLinks(user.linksClicked);
 
@@ -98,6 +98,7 @@ const Tracker = () => {
     window.addEventListener('visibilitychange', () => {
       // If user hides and comes back to page consider it a new session
       if (document.visibilityState === 'visible') {
+        getUserInfo();
         sessionStats.enterTime = new Date().toISOString();
       }
 
@@ -220,6 +221,18 @@ const Tracker = () => {
       let link = res.data;
       // For state
       setLinks(ps => [...ps, link]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getUserInfo() {
+    try {
+      const res = await axios.get(`${tracker.apiURL}/user`);
+
+      const user = res.data;
+      console.log(user);
+      setUser('get user fired' + user);
     } catch (err) {
       console.log(err);
     }
