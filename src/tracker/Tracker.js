@@ -80,7 +80,7 @@ const Tracker = () => {
       if (user.sessions) setSessions(user.sessions);
       if (user.sessionsInfo) {
         setSessionCount(user.sessionsInfo.count);
-        setSessionTime(user.sessionsInfo.totalTime);
+        setSessionTime(parseInt(user.sessionsInfo.totalTime).toFixed(1));
       }
     }
   }, [user]);
@@ -292,19 +292,13 @@ const Tracker = () => {
               <UserInfo title="Session Count" info={sessionCount} />
             </Grid>
             <Grid item xs={6}>
-              <UserInfo title="Session Time" info={sessionTime} />
+              <UserInfo title="Session Time (seconds)" info={sessionTime} />
+            </Grid>
+            <Grid item xs={12}>
+              asdf
             </Grid>
           </Grid>
         </Grid>
-
-        {/* <Grid item xs={12}>
-            <p>Sessions: </p>
-            <UserInfo title="Session Count" info={sessionCount} />
-          </Grid>
-          <Grid item xs={6}>
-            <p>shit</p>
-          </Grid>
-        */}
       </Grid>
     </div>
   );
