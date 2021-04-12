@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
 import DivsVisited from './components/DivsVisited';
 import LinksVisited from './components/LinksVisited';
+import Sessions from './components/Sessions';
 
 const tracker = new trackerApp();
 
@@ -295,7 +296,7 @@ const Tracker = () => {
               <UserInfo title="Session Time (seconds)" info={sessionTime} />
             </Grid>
             <Grid item xs={12}>
-              asdf
+              <Sessions />
             </Grid>
           </Grid>
         </Grid>
