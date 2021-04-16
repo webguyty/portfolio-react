@@ -122,14 +122,9 @@ section .section-tracker {
 }
 
 section .section-covid {
-  // Styling for stars
-  padding-top: 20rem;
-  margin-top: -10rem;
-  padding-bottom: 10rem;
-
   background-color: $color-grey-dark-3;
-  // padding-top: 10rem;
-  // padding-bottom: 10rem;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 
   @include respond(big-desktop) {
     padding: 10rem $page-margin-lg;
