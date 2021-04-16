@@ -54,6 +54,7 @@ const Tracker = () => {
     trackSessions();
     trackDivs();
     trackLinks();
+
     // eslint-disable-next-line
   }, []);
 
@@ -73,6 +74,7 @@ const Tracker = () => {
 
       if (user.divVisits) {
         setDivs(user.divVisits);
+
         // Filter out visits for less than 0.5s for simple display
         let filtered = user.divVisits.filter(d => d.timeOnDivSec > 0.4);
         setDivsFiltered(filtered);
@@ -293,7 +295,10 @@ const Tracker = () => {
               <UserInfo title="Session Count" info={sessionCount} />
             </Grid>
             <Grid item xs={6}>
-              <UserInfo title="Session Time (seconds)" info={sessionTime} />
+              <UserInfo
+                title="Total time on page"
+                info={sessionTime + ' Seconds'}
+              />
             </Grid>
             <Grid item xs={12}>
               <Sessions />
