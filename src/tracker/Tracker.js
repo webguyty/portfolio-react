@@ -6,13 +6,14 @@ import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
 import DivsVisited from './components/DivsVisited';
 import LinksVisited from './components/LinksVisited';
+import Sessions from './components/Sessions';
 
 const tracker = new trackerApp();
 
 const Tracker = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [ip, setIP] = useState('');
-  const [city, setCity] = useState('asdf');
+  const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
@@ -20,6 +21,9 @@ const Tracker = () => {
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
   const [divsFiltered, setDivsFiltered] = useState([]);
+  const [sessions, setSessions] = useState();
+  const [sessionCount, setSessionCount] = useState(0);
+  const [sessionTime, setSessionTime] = useState(0);
 
   let divStats = {
     divName: '',
@@ -28,47 +32,110 @@ const Tracker = () => {
     divTime: '',
   };
 
+  let sessionStats = {
+    enterTime: '',
+    exitTime: '',
+  };
+
+  //
+  // Tracker initialization and state set up
+  //
   useEffect(() => {
     tracker.start();
 
-    (async () => {
+    const populateUser = async () => {
       const res = await tracker.logUser();
       setUser(res);
-      setIP(res.ip);
-      let { city, country, state, zip } = res.userLocation;
-      setCity(city);
-      setCountry(country);
-      setState(state);
-      setZip(zip);
+    };
 
-      if (res.linksClicked) setLinks(res.linksClicked);
+    populateUser();
 
-      if (res.divVisits) {
-        setDivs(res.divVisits);
-        // Filter out visits for less than 0.5s for simple display
-        let filtered = res.divVisits.filter(d => d.timeOnDivSec > 0.4);
-        setDivsFiltered(filtered);
-      }
-    })();
+    // Initialize optional trackers
+    trackSessions();
+    trackDivs();
+    trackLinks();
 
-    // Initialize tracker
-    gsDivEnter();
-    gsDivExit();
-    linkListeners();
+    // eslint-disable-next-line
   }, []);
 
+  // Set state of user object
+  useEffect(() => {
+    if (user) {
+      setIP(user.ip);
+      if (user.userLocation) {
+        let { city, country, state, zip } = user?.userLocation;
+        setCity(city);
+        setCountry(country);
+        setState(state);
+        setZip(zip);
+      }
+
+      if (user.linksClicked) setLinks(user.linksClicked);
+
+      if (user.divVisits) {
+        setDivs(user.divVisits);
+
+        // Filter out visits for less than 0.5s for simple display
+        let filtered = user.divVisits.filter(d => d.timeOnDivSec > 0.4);
+        setDivsFiltered(filtered);
+      }
+
+      if (user.sessions) setSessions(user.sessions);
+      if (user.sessionsInfo) {
+        setSessionCount(user.sessionsInfo.count);
+        setSessionTime(parseInt(user.sessionsInfo.totalTime).toFixed(1));
+      }
+    }
+  }, [user]);
+
+  // Filter out div's in FE with less than 0.5s for display
   useEffect(() => {
     let filtered = divs.filter(d => d.timeOnDivSec > 0.5);
     setDivsFiltered(filtered);
   }, [divs]);
 
   //
-  // Event listeners
+  // Tracker functionality + state management
   //
 
+  function trackSessions() {
+    // add start time for session tracking
+    let now = new Date();
+    sessionStats.enterTime = now.toISOString();
+
+    window.addEventListener('visibilitychange', async () => {
+      // If user hides and comes back to page consider it a new session
+      if (document.visibilityState === 'visible') {
+        // Call getUserInfo when visible to reload user object for displaying sessions
+        getUserInfo();
+        // let u = await getUserInfo();
+        // setUser(u);
+        sessionStats.enterTime = new Date().toISOString();
+      }
+
+      // If user leaves or hides page send logSession API call
+      if (document.visibilityState === 'hidden') {
+        sessionStats.exitTime = new Date().toISOString();
+
+        logSession(sessionStats);
+
+        sessionStats.enterTime = '';
+        sessionStats.exitTime = '';
+      }
+    });
+  }
+
+  //
   // Gumshoe - div and link tracking
-  // Add event listeners to log div time with Gumshoe
-  function gsDivEnter() {
+  //
+
+  function trackDivs() {
+    // Configure for reading first div 'header' when page loads. If page is reloaded a reload message will appear
+    divStats.divName = 'header';
+    let now = new Date();
+    divStats.enterTime = now.toISOString();
+
+    // Add event listeners to log div time with Gumshoe
     // When div becomes active on screen, activate Gumshoe
     document.addEventListener(
       'gumshoeActivate',
@@ -80,15 +147,11 @@ const Tracker = () => {
         // Div enter time
         let now = new Date();
         divStats.enterTime = now.toISOString();
-
-        // Pass time through callback for state in react component
-        // if (cb) cb(now);
       },
       false
     );
-  }
-  // When div becomes deactive on screen, deactivate Gumshoe
-  function gsDivExit() {
+
+    // When div becomes deactive on screen, deactivate Gumshoe
     document.addEventListener(
       'gumshoeDeactivate',
       event => {
@@ -108,7 +171,7 @@ const Tracker = () => {
         }
 
         logDiv(divStats);
-        // clear the div
+
         divStats = {};
       },
       false
@@ -116,11 +179,11 @@ const Tracker = () => {
   }
 
   // Event listeners for links
-  function linkListeners() {
+  function trackLinks() {
     const links = document.querySelectorAll('a');
 
     links.forEach(link => {
-      link.addEventListener('mousedown', e => {
+      link.addEventListener('click', e => {
         logLink({ link: link.href });
       });
     });
@@ -129,6 +192,20 @@ const Tracker = () => {
   //
   // API Calls
   //
+  async function logSession(info) {
+    try {
+      await fetch(`${tracker.apiURL}/logSession`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(info),
+        keepalive: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   async function logDiv(info) {
     try {
@@ -155,6 +232,18 @@ const Tracker = () => {
       let link = res.data;
       // For state
       setLinks(ps => [...ps, link]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getUserInfo() {
+    try {
+      const res = await axios.get(`${tracker.apiURL}/user`);
+
+      const user = res.data;
+      // console.log(user);
+      setUser(user);
     } catch (err) {
       console.log(err);
     }
@@ -194,9 +283,27 @@ const Tracker = () => {
           {divsFiltered && <DivsVisited divs={divsFiltered} />}
         </Grid>
 
-        <Grid item>
+        <Grid item xs={3}>
           <p>Links Clicked on: </p>
           <LinksVisited links={links} />
+        </Grid>
+
+        <Grid item xs={6}>
+          <p>Sessions: </p>
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <UserInfo title="Session Count" info={sessionCount} />
+            </Grid>
+            <Grid item xs={6}>
+              <UserInfo
+                title="Total time on page"
+                info={sessionTime + ' Seconds'}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Sessions />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>
