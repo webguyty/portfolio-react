@@ -17,6 +17,7 @@ showGraph();
 showData();
 
 // Send message component
+//
 document.getElementById('form').addEventListener('submit', e => sendEmail(e));
 
 // const tracker = new trackerApp();
