@@ -8,15 +8,15 @@ const UserInfo = (props) => {
   return (
     <div className="tracker__userInfo">
       <ul className="">
-        <InfoItem title="User" info={ip} />
+        <li><InfoItem title="User" info={ip} /></li>
 
-        <InfoItem title="Country" info={country} />
+        <li><InfoItem title="Country" info={country} /></li>
 
-        <InfoItem title="State" info={state} />
+        <li><InfoItem title="State" info={state} /></li>
 
-        <InfoItem title="City" info={city} />
+        <li><InfoItem title="City" info={city} /></li>
 
-        <InfoItem title="Zip" info={zip} />
+        <li><InfoItem title="Zip" info={zip} /></li>
       </ul>
     </div>
   );

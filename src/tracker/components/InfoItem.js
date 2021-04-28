@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 
 
 const InfoItem = ({ title, info }) => {
   return (
-    <li>
+    <Fragment>
       <h5 className="tracker__userInfo__title">{title}</h5>
       <p className="tracker__userInfo__info">{info}</p>
-    </li>
+    </Fragment>
   );
 }
 

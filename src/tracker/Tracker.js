@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
+import InfoItem from './components/InfoItem';
 import DivsVisited from './components/DivsVisited';
 import LinksVisited from './components/LinksVisited';
 import Sessions from './components/Sessions';
@@ -260,22 +261,9 @@ const Tracker = () => {
   return (
     <div className="tracker">
       <Grid container spacing={3}>
-        <UserInfo user={{ip, country, state, city, zip}} />
-        {/* <Grid item xs={2}>
-          <UserInfo title="User" info={ip} />
+        <Grid item xs={6}>
+          <UserInfo user={{ip, country, state, city, zip}} />
         </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="Country" info={country} />
-        </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="State" info={state} />
-        </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="City" info={city} />
-        </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="Zip" info={zip} />
-        </Grid> */}
       </Grid>
 
       <Grid container spacing={3}>
@@ -293,13 +281,13 @@ const Tracker = () => {
           <p>Sessions: </p>
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              {/* <UserInfo title="Session Count" info={sessionCount} /> */}
+              <InfoItem title="Session Count" info={sessionCount} />
             </Grid>
             <Grid item xs={6}>
-              {/* <UserInfo
+              <InfoItem
                 title="Total time on page"
                 info={sessionTime + ' Seconds'}
-              /> */}
+              />
             </Grid>
             <Grid item xs={12}>
               <Sessions />
