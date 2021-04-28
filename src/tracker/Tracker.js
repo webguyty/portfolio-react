@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
+import Map from './components/Map';
 import InfoItem from './components/InfoItem';
 import DivsVisited from './components/DivsVisited';
 import LinksVisited from './components/LinksVisited';
@@ -263,6 +264,10 @@ const Tracker = () => {
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <UserInfo user={{ip, country, state, city, zip}} />
+        </Grid>
+        <Grid item xs={6}>
+          <div id='MAP_CONTAINER'></div>
+          <Map />
         </Grid>
       </Grid>
 
