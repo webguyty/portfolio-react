@@ -19,6 +19,8 @@ const Tracker = () => {
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
+  const [lat, setLat] = useState('');
+  const [long, setLong] = useState('');
 
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
@@ -65,11 +67,13 @@ const Tracker = () => {
     if (user) {
       setIP(user.ip);
       if (user.userLocation) {
-        let { city, country, state, zip } = user?.userLocation;
+        let { city, country, state, zip, lat, long } = user?.userLocation;
         setCity(city);
         setCountry(country);
         setState(state);
         setZip(zip);
+        setLat(lat);
+        setLong(long);
       }
 
       if (user.linksClicked) setLinks(user.linksClicked);
@@ -263,11 +267,10 @@ const Tracker = () => {
     <div className="tracker">
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <UserInfo user={{ip, country, state, city, zip}} />
+          <UserInfo user={{ ip, country, state, city, zip }} />
         </Grid>
         <Grid item xs={6}>
-          <div id='MAP_CONTAINER'></div>
-          <Map />
+          <Map lat={lat} long={long} />
         </Grid>
       </Grid>
 
