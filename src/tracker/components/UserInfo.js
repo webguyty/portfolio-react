@@ -1,30 +1,22 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import InfoItem from './InfoItem'
 
-const UserInfoItem = ({ title, info }) => {
-  return (
-    <li>
-      <h5 className="tracker__userInfo__title">{title}</h5>
-      <p className="tracker__userInfo__info">{info}</p>
-    </li>
-  );
-};
+
 
 const UserInfo = (props) => {
   const {ip, country, state, city, zip} = props.user
-  // console.log('asdf' + JSON.stringify(props.user));
   return (
     <div className="tracker__userInfo">
       <ul className="">
-        <UserInfoItem title="User1" info={ip} />
+        <InfoItem title="User" info={ip} />
 
-        <UserInfoItem title="Country" info={country} />
+        <InfoItem title="Country" info={country} />
 
-        <UserInfoItem title="State" info={state} />
+        <InfoItem title="State" info={state} />
 
-        <UserInfoItem title="City" info={city} />
+        <InfoItem title="City" info={city} />
 
-        <UserInfoItem title="Zip" info={zip} />
+        <InfoItem title="Zip" info={zip} />
       </ul>
     </div>
   );
