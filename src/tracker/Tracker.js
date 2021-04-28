@@ -260,7 +260,8 @@ const Tracker = () => {
   return (
     <div className="tracker">
       <Grid container spacing={3}>
-        <Grid item xs={2}>
+        <UserInfo user={{ip, country, state, city, zip}} />
+        {/* <Grid item xs={2}>
           <UserInfo title="User" info={ip} />
         </Grid>
         <Grid item xs={2}>
@@ -274,7 +275,7 @@ const Tracker = () => {
         </Grid>
         <Grid item xs={2}>
           <UserInfo title="Zip" info={zip} />
-        </Grid>
+        </Grid> */}
       </Grid>
 
       <Grid container spacing={3}>
@@ -292,13 +293,13 @@ const Tracker = () => {
           <p>Sessions: </p>
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <UserInfo title="Session Count" info={sessionCount} />
+              {/* <UserInfo title="Session Count" info={sessionCount} /> */}
             </Grid>
             <Grid item xs={6}>
-              <UserInfo
+              {/* <UserInfo
                 title="Total time on page"
                 info={sessionTime + ' Seconds'}
-              />
+              /> */}
             </Grid>
             <Grid item xs={12}>
               <Sessions />
