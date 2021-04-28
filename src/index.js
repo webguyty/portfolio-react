@@ -12,7 +12,6 @@ import sendEmail from './scripts/sendEmail';
 import { showGraph, showData } from './scripts/graph';
 import Tracker from './tracker/Tracker';
 // import trackerApp from './tracker/trackerApp';
-//
 
 showGraph();
 showData();
