@@ -266,10 +266,10 @@ const Tracker = () => {
   return (
     <div className="tracker">
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <UserInfo user={{ ip, country, state, city, zip }} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <Map lat={lat} long={long} />
         </Grid>
       </Grid>
