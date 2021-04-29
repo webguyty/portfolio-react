@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+src/tracker/mapApi.js
+
 # testing
 /coverage
 

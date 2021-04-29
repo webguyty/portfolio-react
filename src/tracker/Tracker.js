@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
 import UserInfo from './components/UserInfo';
+import Map from './components/Map';
+import InfoItem from './components/InfoItem';
 import DivsVisited from './components/DivsVisited';
 import LinksVisited from './components/LinksVisited';
 import Sessions from './components/Sessions';
@@ -17,6 +19,8 @@ const Tracker = () => {
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
+  const [lat, setLat] = useState('');
+  const [long, setLong] = useState('');
 
   const [links, setLinks] = useState([]);
   const [divs, setDivs] = useState([]);
@@ -63,11 +67,13 @@ const Tracker = () => {
     if (user) {
       setIP(user.ip);
       if (user.userLocation) {
-        let { city, country, state, zip } = user?.userLocation;
+        let { city, country, state, zip, lat, long } = user?.userLocation;
         setCity(city);
         setCountry(country);
         setState(state);
         setZip(zip);
+        setLat(lat);
+        setLong(long);
       }
 
       if (user.linksClicked) setLinks(user.linksClicked);
@@ -260,20 +266,11 @@ const Tracker = () => {
   return (
     <div className="tracker">
       <Grid container spacing={3}>
-        <Grid item xs={2}>
-          <UserInfo title="User" info={ip} />
+        <Grid item xs={4}>
+          <UserInfo user={{ ip, country, state, city, zip }} />
         </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="Country" info={country} />
-        </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="State" info={state} />
-        </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="City" info={city} />
-        </Grid>
-        <Grid item xs={2}>
-          <UserInfo title="Zip" info={zip} />
+        <Grid item xs={8}>
+          <Map lat={lat} long={long} />
         </Grid>
       </Grid>
 
@@ -292,10 +289,10 @@ const Tracker = () => {
           <p>Sessions: </p>
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <UserInfo title="Session Count" info={sessionCount} />
+              <InfoItem title="Session Count" info={sessionCount} />
             </Grid>
             <Grid item xs={6}>
-              <UserInfo
+              <InfoItem
                 title="Total time on page"
                 info={sessionTime + ' Seconds'}
               />

@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "d3": "^5.16.0",
     "gumshoejs": "^5.1.2",
+    "mapbox-gl": "^2.2.0",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -25,7 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync ./build s3://webguyty-portfolio --delete",
-    "clearCash": "aws cloudfront create-invalidation --distribution-id EG20TUQ0RX8ZO --paths *"
+    "clearCash": "aws cloudfront create-invalidation --distribution-id EG20TUQ0RX8ZO --paths /*"
   },
   "eslintConfig": {
     "extends": [
