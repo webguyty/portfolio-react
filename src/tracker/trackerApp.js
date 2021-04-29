@@ -20,7 +20,7 @@ class trackerApp {
       linksClicked: [],
     };
 
-    this.apiURL = 'https://6f4q9idux4.execute-api.us-west-2.amazonaws.com/prod';
+    this.apiURL = 'https://ywhvk48wn5.execute-api.us-west-2.amazonaws.com/dev';
 
     this.axiosConfig = {
       headers: {
