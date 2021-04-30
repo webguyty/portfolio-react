@@ -276,17 +276,16 @@ const Tracker = () => {
 
       <Grid container spacing={3}>
         <Grid item>
-          <p>Divs visited: </p>
+          <h5>Divs visited: </h5>
           {divsFiltered && <DivsVisited divs={divsFiltered} />}
         </Grid>
 
         <Grid item xs={3}>
-          <p>Links Clicked on: </p>
+          <h5>Links Clicked on: </h5>
           <LinksVisited links={links} />
         </Grid>
 
         <Grid item xs={6}>
-          <p>Sessions: </p>
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <InfoItem title="Session Count" info={sessionCount} />
