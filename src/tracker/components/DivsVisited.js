@@ -8,8 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 const DivsVisited = ({ divs, arrLength }) => {
-  // console.log(divs);
-  // let divsMod = divs;
   let divsMod = divs.slice(-arrLength).reverse();
 
   if (!divs)
