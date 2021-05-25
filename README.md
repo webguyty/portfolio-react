@@ -17,4 +17,12 @@ A vanilla JavaScript webpage with React apps sprinkled in. All design and stylin
 
 #### Behavior Tracker
 
-Track the behavior of user's activities on a webpage.
+Track the behavior of user's activities on a webpage. See how long the user has browsed each section of the website and create a click trail of all links clicked on.
+
+#### Goal Seeker
+
+Find out the most frequently recurring themes of your sub conscious goals. Log your dreams daily and goal seeker will analyze them for you.
+
+#### The Noble Dog
+
+Website custom designed with Gatsby, React, and SCSS.
